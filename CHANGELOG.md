@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+* [#303] Fixed wrong validator display in unjail message
+* [#294] Fixed cloneDeep typo in Account section for case-sensitve filesystems.
+* Fixed Commission bug in AccountTooltip to read rates from validator.commission.commission_rates.rate & validator.commission.rate
+*  Added Russian transation
+* Fixed Unjail message with a correct account address.
+* [#323] Display rewards amount in activities list.
+
 ## v0.37.x-patch-10.1
 
 * Fixed a display bug when there is no denom value in the tx fee
