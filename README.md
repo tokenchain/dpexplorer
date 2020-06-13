@@ -1,4 +1,4 @@
-# Big Dipper :sparkles:
+# Big Dipper :sparkles: [![star](https://gitee.com/jjhoc/dipperforbe/badge/star.svg?theme=white)](https://gitee.com/jjhoc/dipperforbe/stargazers)
 
 Block Explorer for Cosmos
 
