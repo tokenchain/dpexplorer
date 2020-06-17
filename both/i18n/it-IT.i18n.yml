@@ -24,7 +24,7 @@ common:
     retry: 'Riprova'
     rewards: 'Reward'
 navbar:
-    siteName: 'The Big Dipper'
+    siteName: 'DP Explorer'
     version: 'beta'
     validators: 'Validatori'
     blocks: 'Blocchi'
@@ -40,7 +40,7 @@ navbar:
     chinese: "中文（繁）"
     simChinese: "中文（简）"
     license: 'LICENZA'
-    forkMe: 'Forkami!'
+    forkMe: 'OSS!'
 consensus:
     consensusState: 'Stato del consenso'
     round: 'Round'
@@ -64,7 +64,7 @@ chainStatus:
     seconds: 'secondi'
     activeValidators: 'Validatori Attivi'
     outOfValidators: 'di {$totalValidators} validatori'
-    onlineVotingPower: 'Voting Power Attivo'
+    onlineVotingPower: 'Mining Power Attivo'
     fromTotalStakes: '{$percent} di {$totalStakes} {$denomPlural}'
 analytics:
     blockTimeHistory: 'Storia Tempo di Blocco'

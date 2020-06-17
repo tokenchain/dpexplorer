@@ -4,7 +4,7 @@ _namespace: ''
 common:
     height: '高度'
     voter: '投票人'
-    votingPower: '投票權'
+    votingPower: '算力權'
     addresses: '地址'
     amounts: '數量'
     delegators: '委托人'
@@ -23,13 +23,13 @@ common:
     cancel: '取消'
     retry: '重試'
 navbar:
-    siteName: '北斗'
+    siteName: 'DP Explorer'
     version: 'beta'
     validators: '驗證人'
     blocks: '區塊'
     transactions: '交易'
     proposals: '治理提案'
-    votingPower: '投票權分佈'
+    votingPower: '算力權分佈'
     lang: "中文（繁）"
     english: "English"
     spanish: "Español"
@@ -39,7 +39,7 @@ navbar:
     chinese: "中文（繁）"
     simChinese: "中文（简）"
     license: 'LICENSE'
-    forkMe: 'Fork me!'
+    forkMe: 'OSS'
 consensus:
     consensusState: '共識狀態'
     round: '輪數'
@@ -63,7 +63,7 @@ chainStatus:
     seconds: '秒'
     activeValidators: '有效驗證人'
     outOfValidators: '來自總共 {$totalValidators} 個驗證人'
-    onlineVotingPower: '在線投票權'
+    onlineVotingPower: '在線挖礦'
     fromTotalStakes: '為 {$totalStakes} 顆 {$denom} 的 {$percent}'
 analytics:
     blockTimeHistory: '在線投票權'
@@ -131,7 +131,7 @@ transactions:
     txHash: '交易哈希'
     valid: '有效'
     fee: '費用'
-    noFee: 'No fee' 
+    noFee: 'No fee'
     gasUsedWanted: '瓦斯 (已用 / 要求)'
     noTxFound: '沒有這筆交易。'
     noValidatorTxsFound: '沒有跟這個驗證人有關的交易'

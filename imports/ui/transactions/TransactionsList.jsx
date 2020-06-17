@@ -33,15 +33,15 @@ export default class Transactions extends Component{
     isBottom(el) {
         return el.getBoundingClientRect().bottom <= window.innerHeight;
     }
-      
+
     componentDidMount() {
         document.addEventListener('scroll', this.trackScrolling);
     }
-    
+
     componentWillUnmount() {
         document.removeEventListener('scroll', this.trackScrolling);
     }
-    
+
     componentDidUpdate(prevProps){
         if (this.props.location.pathname != prevProps.location.pathname){
             this.setState({
@@ -79,13 +79,13 @@ export default class Transactions extends Component{
                 Meteor.clearTimeout(timer);
             },500)
         });
-        
+
     }
 
     render(){
         return <div id="transactions">
             <Helmet>
-                <title>Latest Transactions on Cosmos Hub | The Big Dipper</title>
+                <title>Latest Transactions on Cosmos Hub | The DP</title>
                 <meta name="description" content="See what is happening on Cosmos Hub" />
             </Helmet>
             <Row>
@@ -93,12 +93,12 @@ export default class Transactions extends Component{
                 <Col md={9} xs={12} className="text-md-right"><ChainStates /></Col>
             </Row>
             <Switch>
-                <Route path="/transactions/:txId" render={(props)=> <Sidebar 
+                <Route path="/transactions/:txId" render={(props)=> <Sidebar
                     sidebar={<Transaction {...props} />}
                     open={this.state.sidebarOpen}
                     onSetOpen={this.onSetSidebarOpen}
-                    styles={{ sidebar: { 
-                        background: "white", 
+                    styles={{ sidebar: {
+                        background: "white",
                         position: "fixed",
                         width: '85%',
                         zIndex: 4
