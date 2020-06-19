@@ -1,0 +1,380 @@
+{
+  "genesis_time": "2020-06-18T14:17:32.119543726Z",
+  "chain_id": "darkpool-1x",
+  "consensus_params": {
+    "block": {
+      "max_bytes": "22020096",
+      "max_gas": "-1",
+      "time_iota_ms": "1000"
+    },
+    "evidence": {
+      "max_age": "100000"
+    },
+    "validator": {
+      "pub_key_types": [
+        "ed25519"
+      ]
+    }
+  },
+  "app_hash": "",
+  "app_state": {
+    "bonds": {
+      "bonds": null,
+      "batches": null
+    },
+    "project": {
+      "project_docs": null,
+      "account_maps": null,
+      "withdrawal_infos": null,
+      "params": {
+        "dp_did": "did:dxp:PGtRP4o5cCYhe8B5Fu7xj6",
+        "project_minimum_initial_funding": "1"
+      }
+    },
+    "slashing": {
+      "params": {
+        "max_evidence_age": "120000000000",
+        "signed_blocks_window": "100",
+        "min_signed_per_window": "0.500000000000000000",
+        "downtime_jail_duration": "600000000000",
+        "slash_fraction_double_sign": "0.050000000000000000",
+        "slash_fraction_downtime": "0.010000000000000000"
+      },
+      "signing_infos": {},
+      "missed_blocks": {}
+    },
+    "oracles": {
+      "oracles": [
+        {
+          "oracle_did": "did:dxp:XX1rB7o9BeEmNuvB5PeAn2",
+          "capabilities": [
+            {
+              "denom": "dap",
+              "capabilities": [
+                "mint"
+              ]
+            }
+          ]
+        },
+        {
+          "oracle_did": "did:dxp:Xc7PR8S7A6AzreYR5th2h4",
+          "capabilities": [
+            {
+              "denom": "dap",
+              "capabilities": [
+                "mint",
+                "burn",
+                "transfer"
+              ]
+            }
+          ]
+        },
+        {
+          "oracle_did": "did:dxp:QmuNtGJCJZuU8wm8e9PSWk",
+          "capabilities": [
+            {
+              "denom": "dollar",
+              "capabilities": [
+                "transfer"
+              ]
+            },
+            {
+              "denom": "dap",
+              "capabilities": [
+                "transfer"
+              ]
+            }
+          ]
+        },
+        {
+          "oracle_did": "did:dxp:PQQMd4iP8XUpctiETKRhW2",
+          "capabilities": [
+            {
+              "denom": "dollar",
+              "capabilities": [
+                "transfer",
+                "burn",
+                "mint"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "bonddoc": {
+      "bond_docs": null
+    },
+    "bank": {
+      "send_enabled": true
+    },
+    "staking": {
+      "params": {
+        "unbonding_time": "1814400000000000",
+        "max_validators": 100,
+        "max_entries": 7,
+        "bond_denom": "stake"
+      },
+      "last_total_power": "0",
+      "last_validator_powers": null,
+      "validators": null,
+      "delegations": null,
+      "unbonding_delegations": null,
+      "redelegations": null,
+      "exported": false
+    },
+    "supply": {
+      "supply": []
+    },
+    "gov": {
+      "starting_proposal_id": "1",
+      "deposits": null,
+      "votes": null,
+      "proposals": null,
+      "deposit_params": {
+        "min_deposit": [
+          {
+            "denom": "stake",
+            "amount": "10000000"
+          }
+        ],
+        "max_deposit_period": "172800000000000"
+      },
+      "voting_params": {
+        "voting_period": "172800000000000"
+      },
+      "tally_params": {
+        "quorum": "0.334000000000000000",
+        "threshold": "0.500000000000000000",
+        "veto": "0.334000000000000000"
+      }
+    },
+    "genutil": {
+      "gentxs": [
+        {
+          "type": "cosmos-sdk/StdTx",
+          "value": {
+            "msg": [
+              {
+                "type": "cosmos-sdk/MsgCreateValidator",
+                "value": {
+                  "description": {
+                    "moniker": "horizonhomeworld",
+                    "identity": "",
+                    "website": "",
+                    "details": ""
+                  },
+                  "commission": {
+                    "rate": "0.100000000000000000",
+                    "max_rate": "0.200000000000000000",
+                    "max_change_rate": "0.010000000000000000"
+                  },
+                  "min_self_delegation": "1",
+                  "delegator_address": "dx01ayeccn6nq2djyvh4u2cq6fmv7l6ea96wu9xu2e",
+                  "validator_address": "dx0valoper1ayeccn6nq2djyvh4u2cq6fmv7l6ea96wsruh0e",
+                  "pubkey": "dx0valconspub1zcjduepqj37s673t7u76kkyurxv7926jsmzm85fs3yqc7w7gmpwcfeyw9z0su2xrem",
+                  "value": {
+                    "denom": "stake",
+                    "amount": "100000000"
+                  }
+                }
+              }
+            ],
+            "fee": {
+              "amount": [],
+              "gas": "200000"
+            },
+            "signatures": [
+              {
+                "pub_key": {
+                  "type": "tendermint/PubKeySecp256k1",
+                  "value": "A0CGY/LJAYXePCsL+NifCoe6ChiDEpxyPqx7ZaxqehhT"
+                },
+                "signature": "NLVlIfcDQy+M5pnQwYtAqvI7ZqDfzIkuDWFmZOtiPtxCZcYTdkdVZ2EKzSn6myMR3Kc9qMx0pjh8psHz1LF1ug=="
+              }
+            ],
+            "memo": "4012c1b1daedd7c75cfd33e32c0b2b63834d449a@172.31.109.2:26656"
+          }
+        }
+      ]
+    },
+    "mint": {
+      "minter": {
+        "inflation": "0.130000000000000000",
+        "annual_provisions": "0.000000000000000000"
+      },
+      "params": {
+        "mint_denom": "stake",
+        "inflation_rate_change": "0.130000000000000000",
+        "inflation_max": "0.200000000000000000",
+        "inflation_min": "0.070000000000000000",
+        "goal_bonded": "0.670000000000000000",
+        "blocks_per_year": "6311520"
+      }
+    },
+    "params": null,
+    "did": {
+      "did_docs": null
+    },
+    "crisis": {
+      "constant_fee": {
+        "denom": "stake",
+        "amount": "1000"
+      }
+    },
+    "treasury": null,
+    "auth": {
+      "params": {
+        "max_memo_characters": "256",
+        "tx_sig_limit": "7",
+        "tx_size_cost_per_byte": "10",
+        "sig_verify_cost_ed25519": "590",
+        "sig_verify_cost_secp256k1": "1000"
+      }
+    },
+    "distribution": {
+      "fee_pool": {
+        "community_pool": []
+      },
+      "community_tax": "0.020000000000000000",
+      "base_proposer_reward": "0.010000000000000000",
+      "bonus_proposer_reward": "0.040000000000000000",
+      "withdraw_addr_enabled": true,
+      "delegator_withdraw_infos": [],
+      "previous_proposer": "",
+      "outstanding_rewards": [],
+      "validator_accumulated_commissions": [],
+      "validator_historical_rewards": [],
+      "validator_current_rewards": [],
+      "delegator_starting_infos": [],
+      "validator_slash_events": []
+    },
+    "fees": {
+      "params": {
+        "ixo_factor": "1.000000000000000000",
+        "initiation_fee_amount": "50000000000.000000000000000000",
+        "initiation_node_fee_percentage": "0.000000000000000000",
+        "claim_fee_amount": "60000000.000000000000000000",
+        "evaluation_fee_amount": "40000000.000000000000000000",
+        "service_agent_registration_fee_amount": "0.000000000000000000",
+        "evaluation_agent_registration_fee_amount": "0.000000000000000000",
+        "node_fee_percentage": "0.500000000000000000",
+        "evaluation_pay_fee_percentage": "0.100000000000000000",
+        "evaluation_pay_node_fee_percentage": "0.200000000000000000"
+      }
+    },
+    "accounts": [
+      {
+        "address": "dx01ayeccn6nq2djyvh4u2cq6fmv7l6ea96wu9xu2e",
+        "coins": [
+          {
+            "denom": "dap",
+            "amount": "10000000000"
+          },
+          {
+            "denom": "dollar",
+            "amount": "10000000"
+          },
+          {
+            "denom": "stake",
+            "amount": "100000000"
+          }
+        ],
+        "sequence_number": "0",
+        "account_number": "0",
+        "original_vesting": [],
+        "delegated_free": [],
+        "delegated_vesting": [],
+        "start_time": "0",
+        "end_time": "0",
+        "module_name": "",
+        "module_permissions": [
+          ""
+        ]
+      },
+      {
+        "address": "dx01zf5v2jfrld0ufwav27gkg4t8vs2zj043vk6y3l",
+        "coins": [
+          {
+            "denom": "dap",
+            "amount": "100"
+          },
+          {
+            "denom": "dollar",
+            "amount": "10000"
+          },
+          {
+            "denom": "stake",
+            "amount": "100000000"
+          }
+        ],
+        "sequence_number": "0",
+        "account_number": "0",
+        "original_vesting": [],
+        "delegated_free": [],
+        "delegated_vesting": [],
+        "start_time": "0",
+        "end_time": "0",
+        "module_name": "",
+        "module_permissions": [
+          ""
+        ]
+      },
+      {
+        "address": "dx0186n058wqrskk7wzhquy7d9fpq7t59e867t3lc3",
+        "coins": [
+          {
+            "denom": "dap",
+            "amount": "100"
+          },
+          {
+            "denom": "dollar",
+            "amount": "10000"
+          },
+          {
+            "denom": "stake",
+            "amount": "100000000"
+          }
+        ],
+        "sequence_number": "0",
+        "account_number": "0",
+        "original_vesting": [],
+        "delegated_free": [],
+        "delegated_vesting": [],
+        "start_time": "0",
+        "end_time": "0",
+        "module_name": "",
+        "module_permissions": [
+          ""
+        ]
+      },
+      {
+        "address": "dx01e5ny8xt4rxa2pp4l9gm4s22vak8zvpyhm8r339",
+        "coins": [
+          {
+            "denom": "dap",
+            "amount": "100"
+          },
+          {
+            "denom": "dollar",
+            "amount": "10000"
+          },
+          {
+            "denom": "stake",
+            "amount": "100000000"
+          }
+        ],
+        "sequence_number": "0",
+        "account_number": "0",
+        "original_vesting": [],
+        "delegated_free": [],
+        "delegated_vesting": [],
+        "start_time": "0",
+        "end_time": "0",
+        "module_name": "",
+        "module_permissions": [
+          ""
+        ]
+      }
+    ]
+  }
+}

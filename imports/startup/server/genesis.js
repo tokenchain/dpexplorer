@@ -3,5 +3,4 @@ let validatorsCount = Validators.find({}).count();
 
 if (validatorsCount == 0){
     console.log("no validators");
-    
 }

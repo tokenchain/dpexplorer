@@ -8,7 +8,6 @@ import Coin from '/both/utils/coins.js'
 
 const T = i18n.createComponent();
 
-
 export default class ChainStates extends Component{
     constructor(props){
         super(props);

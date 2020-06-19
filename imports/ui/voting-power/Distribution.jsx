@@ -17,8 +17,8 @@ export default class Distribution extends Component{
     render(){
         return <div id="voting-power-dist">
             <Helmet>
-                <title>Voting Power Distribution on Cosmos Hub | The Big Dipper</title>
-                <meta name="description" content="We would like to keep track how voting power are distributed over time among validators." />
+                <title>Mining Power Distribution DP Hub</title>
+                <meta name="description" content="We would like to keep track how mining power are distributed over time among validators." />
             </Helmet>
             <Row>
                 <Col md={3} xs={12}><h1 className="d-none d-lg-block"><T>votingPower.distribution</T></h1></Col>

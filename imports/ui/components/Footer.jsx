@@ -10,7 +10,20 @@ import moment from 'moment';
 import i18n from 'meteor/universe:i18n';
 
 const T = i18n.createComponent();
+/**
+ <Navbar color="light" light expand="md" fixed="bottom" id="footer" className="d-none d-md-flex">
 
+ <span className="text-muted"><a href="https://raw.githubusercontent.com/forbole/big_dipper/master/LICENSE" target="_blank"><T>navbar.license</T></a> &copy;2018-{moment().format('YYYY')}. </span>
+ <Nav className="ml-auto" navbar>
+ <NavItem>
+ <NavLink href="https://www.github.com/" target="_blank"><i className="fab fa-github"></i><T>navbar.forkMe</T></NavLink>
+ </NavItem>
+ </Nav>
+
+ </Navbar>
+
+
+ */
 export default class Footer extends React.Component {
     constructor(props) {
         super(props);
@@ -19,14 +32,6 @@ export default class Footer extends React.Component {
     render() {
         return (
             <div>
-                <Navbar color="light" light expand="md" fixed="bottom" id="footer" className="d-none d-md-flex">
-                    <span className="text-muted"><a href="https://raw.githubusercontent.com/forbole/big_dipper/master/LICENSE" target="_blank"><T>navbar.license</T></a> &copy;2018-{moment().format('YYYY')}. </span>
-                    <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink href="https://www.github.com/" target="_blank"><i className="fab fa-github"></i><T>navbar.forkMe</T></NavLink>
-                        </NavItem>
-                    </Nav>
-                </Navbar>
                 <Navbar color="light" light fixed="bottom" className="d-block d-md-none mobile-menu">
                     <Nav>
                         <NavItem>

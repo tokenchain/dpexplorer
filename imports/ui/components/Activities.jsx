@@ -59,7 +59,7 @@ export class Activites extends Component {
                 let amount = '';
                 amount = msg.amount.map ((coin) => new Coin (coin.amount, coin.denom).toString ()).join (', ');
 
-                return <p><Account address={msg.from_address}/> {(this.props.invalid) ?
+                return <p><T>activities.from</T><Account address={msg.from_address}/> {(this.props.invalid) ?
                     <T>activities.failedTo</T> : ''}<MsgType type="cosmos-sdk/MsgSend"/> <span
                     className="text-success">{amount}</span> <T>activities.to</T> <span className="address"><Account
                     address={msg.to_address}/></span><T>common.fullStop</T></p>
