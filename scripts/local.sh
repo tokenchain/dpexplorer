@@ -7,4 +7,5 @@
 echo "==========================="
 echo "Starting the server now..."
 echo "==========================="
+cd $HOME/Documents/ixo/dpexplorer
 meteor --settings settings_local.json
