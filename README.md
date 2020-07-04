@@ -1,39 +1,12 @@
-# Big Dipper :sparkles:
+# Darkpool :sparkles:
 
-Block Explorer for Cosmos
+Block explorer for Darkpool
 
 ## Projects running on mainnets
 
-[Explore Cosmos Hub with Big Dipper](https://cosmos.bigdipper.live)
+[Explore DP Hub with Darkpool](https://www.darkpool.vip)
 
-[Explore IRISnet with Big Dipper](https://iris.bigdipper.live)
-
-[Explore LikeCoin Chain with Big Dipper](http://likecoin.bigdipper.live/)
-
-[Explore Kava with Big Dipper](https://kava.bigdipper.live/)
-
-[Explore e-Money with Big Dipper](https://e-money.network/)
-
-
-## Projects with testnets
-
-[Agoric](https://explorer.testnet.agoric.com/)
-
-[Band Protocol](http://scan-bigdipper.bandchain.org/)
-
-[Cyber Congress](https://cyberd.ai/)
-
-[Desmos Network](https://morpheus.desmos.network/)
-
-[Persistence](https://explorer.persistence.one/)
-
-[Regen Network](https://explorer.regen.vitwit.com/)
-
-[Sentinel](https://explorer.sentinel.co/)
-
-[Dropil Chain](https://testnet-explorer.dropilchain.com/)
-
-## How to run The Big Dipper
+## How to run block explorer 
 
 1. Copy `default_settings.json` to `settings.json`.
 2. Update the RPC and LCD URLs.
@@ -66,8 +39,8 @@ You will need to have [MongoDB >= 4.x](https://docs.mongodb.com/manual/administr
 
 The Big Dipper is always free and open. Anyone can use to monitor available Cosmos hub or zones, or port to your own chain built with Cosmos SDK. We welcome any supports to help us improve this project.
 
-ATOM: `cosmos1n67vdlaejpj3uzswr9qapeg76zlkusj5k875ma`\
-BTC: `1HrTuvS83VoUVA79wTifko69ziWTjEXzQS`\
-ETH: `0xec3AaC5023E0C9E2a76A223E4e312f275c76Cd77`
+DAP: `dx01xhxvgll3s972dmc9zemj4lv0nvtsdkfj3y9njs`\
+BTC: `12hoheXpFHUWzpkPgA9XuR4s8DMogkjHmg`\
+ETH: `0x12D3C114dd98DA9E00E0F405d4BFD18DD2236eEd`
 
 And by downloading and using [Brave](https://brave.com/big517).
