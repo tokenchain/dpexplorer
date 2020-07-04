@@ -28,16 +28,17 @@ Meteor.methods({
             let votedPower = Math.round(parseFloat(consensus.round_state.votes[round].prevotes_bit_array.split(" ")[3])*100);
 
             Chain.update({chainId:Meteor.settings.public.chainId}, {$set:{
-                votingHeight: height,
-                votingRound: round,
-                votingStep: step,
-                votedPower: votedPower,
-                proposerAddress: consensus.round_state.validators.proposer.address,
-                prevotes: consensus.round_state.votes[round].prevotes,
-                precommits: consensus.round_state.votes[round].precommits
-            }});
+                    votingHeight: height,
+                    votingRound: round,
+                    votingStep: step,
+                    votedPower: votedPower,
+                    proposerAddress: consensus.round_state.validators.proposer.address,
+                    prevotes: consensus.round_state.votes[round].prevotes,
+                    precommits: consensus.round_state.votes[round].precommits
+                }});
         }
         catch(e){
+            console.log(url);
             console.log(e);
         }
     },
@@ -58,7 +59,9 @@ Meteor.methods({
                 return `no updates (getting block ${chain.latestBlockHeight} at block ${latestState.height})`
             }
 
-            url = RPC+'/validators';
+            // Since Tendermint v0.33, validator page default set to return 30 validators.
+            // Query latest height with page 1 and 100 validators per page.
+            url = RPC+`/validators?height=${chain.latestBlockHeight}&page=1&per_page=100`;
             response = HTTP.get(url);
             let validators = JSON.parse(response.content);
             validators = validators.result.validators;
@@ -87,6 +90,7 @@ Meteor.methods({
                     chainStates.notBondedTokens = parseInt(bonding.not_bonded_tokens);
                 }
                 catch(e){
+                    console.log(url);
                     console.log(e);
                 }
 
@@ -98,6 +102,7 @@ Meteor.methods({
                         chainStates.totalSupply = parseInt(supply);
                     }
                     catch(e){
+                        console.log(url);
                         console.log(e);
                     }
 
@@ -116,6 +121,7 @@ Meteor.methods({
                         }
                     }
                     catch (e){
+                        console.log(url);
                         console.log(e)
                     }
 
@@ -128,6 +134,7 @@ Meteor.methods({
                         }
                     }
                     catch(e){
+                        console.log(url);
                         console.log(e);
                     }
 
@@ -140,9 +147,10 @@ Meteor.methods({
                         }
                     }
                     catch(e){
+                        console.log(url);
                         console.log(e);
                     }
-            		}
+                }
 
                 ChainStates.insert(chainStates);
             }
@@ -154,6 +162,7 @@ Meteor.methods({
             return chain.latestBlockHeight;
         }
         catch (e){
+            console.log(url);
             console.log(e);
             return "Error getting chain status.";
         }
@@ -202,14 +211,14 @@ Meteor.methods({
                 crisis: genesis.app_state.crisis
             }
 
-	    if (genesis.app_state.gov) {
+            if (genesis.app_state.gov) {
                 chainParams.gov = {
                     startingProposalId: genesis.app_state.gov.starting_proposal_id,
                     depositParams: genesis.app_state.gov.deposit_params,
                     votingParams: genesis.app_state.gov.voting_params,
                     tallyParams: genesis.app_state.gov.tally_params
                 };
-	    }
+            }
             let totalVotingPower = 0;
 
             // read gentx
@@ -235,12 +244,11 @@ Meteor.methods({
 
                             totalVotingPower += validator.voting_power;
 
-                            let pubkeyType = Meteor.settings.public.secp256k1?'tendermint/PubKeySecp256k1':'tendermint/PubKeyEd25519';
-                            let pubkeyValue = Meteor.call('bech32ToPubkey', msg[m].value.pubkey, pubkeyType);
+                            let pubkeyValue = Meteor.call('bech32ToPubkey', msg[m].value.pubkey);
                             // Validators.upsert({consensus_pubkey:msg[m].value.pubkey},validator);
 
                             validator.pub_key = {
-                                "type":pubkeyType,
+                                "type":"tendermint/PubKeyEd25519",
                                 "value":pubkeyValue
                             }
 
@@ -273,11 +281,10 @@ Meteor.methods({
                     let validator = genValidatorsSet[v];
                     validator.delegator_address = Meteor.call('getDelegator', genValidatorsSet[v].operator_address);
 
-                    let pubkeyType = Meteor.settings.public.secp256k1?'tendermint/PubKeySecp256k1':'tendermint/PubKeyEd25519';
-                    let pubkeyValue = Meteor.call('bech32ToPubkey', validator.consensus_pubkey, pubkeyType);
+                    let pubkeyValue = Meteor.call('bech32ToPubkey', validator.consensus_pubkey);
 
                     validator.pub_key = {
-                        "type":pubkeyType,
+                        "type":"tendermint/PubKeyEd25519",
                         "value":pubkeyValue
                     }
 

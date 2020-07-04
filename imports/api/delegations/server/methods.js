@@ -23,8 +23,9 @@ Meteor.methods({
                     }
                 }
                 catch (e){
+                    console.log(url);
                     console.log(e);
-                }    
+                }
             }
         }
 
@@ -41,18 +42,4 @@ Meteor.methods({
 
         return Delegations.insert(data);
     }
-    // 'blocks.averageBlockTime'(address){
-    //     let blocks = Blockscon.find({proposerAddress:address}).fetch();
-    //     let heights = blocks.map((block, i) => {
-    //         return block.height;
-    //     });
-    //     let blocksStats = Analytics.find({height:{$in:heights}}).fetch();
-    //     // console.log(blocksStats);
-
-    //     let totalBlockDiff = 0;
-    //     for (b in blocksStats){
-    //         totalBlockDiff += blocksStats[b].timeDiff;
-    //     }
-    //     return totalBlockDiff/heights.length;
-    // }
 })
