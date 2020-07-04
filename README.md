@@ -4,7 +4,7 @@ Block explorer for Darkpool
 
 ## Projects running on mainnets
 
-[Explore DP Hub with Darkpool](https://www.darkpool.vip)
+[Explore DP Hub with Darkpool](http://darkpool.profitlock.io)
 
 ## How to run block explorer 
 
