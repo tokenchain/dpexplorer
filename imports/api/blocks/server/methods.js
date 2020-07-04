@@ -191,13 +191,16 @@ Meteor.methods({
                         // store height, hash, numtransaction and time in db
                         let blockData = {};
                         blockData.height = height;
-                        blockData.hash = block.block_meta.block_id.hash;
-                        blockData.transNum = block.block_meta.header.num_txs;
+                        blockData.hash = block.block_id.hash;
+                        blockData.transNum = block.block.data.txs?block.block.data.txs.length:0;
                         blockData.time = new Date(block.block.header.time);
                         blockData.lastBlockHash = block.block.header.last_block_id.hash;
                         blockData.proposerAddress = block.block.header.proposer_address;
                         blockData.validators = [];
-                        let precommits = block.block.last_commit.precommits;
+
+                        // Tendermint v0.33 start using "signatures" in last block instead of "precommits"
+
+                        let precommits = block.block.last_commit.signatures;
                         if (precommits != null){
                             // console.log(precommits.length);
                             for (let i=0; i<precommits.length; i++){
@@ -240,7 +243,8 @@ Meteor.methods({
 
                         let startGetValidatorsTime = new Date();
                         // update chain status
-                        url = RPC+'/validators?height='+height;
+                        //url = RPC+'/validators?height='+height;
+                        url = RPC+`/validators?height=${height}&page=1&per_page=100`;
                         response = HTTP.get(url);
                         console.log(url);
                         let validators = JSON.parse(response.content);
@@ -406,15 +410,12 @@ Meteor.methods({
                                     // validator.address = validator.address[0].trim();
                                     // validator.hex = result.match(/\s[0-9A-F]{64}$/igm);
                                     // validator.hex = validator.hex[0].trim();
-                                    // validator.cosmosaccpub = result.match(/cosmospub.*$/igm);
-                                    // validator.cosmosaccpub = validator.cosmosaccpub[0].trim();
-                                    // validator.operator_pubkey = result.match(/cosmosvaloperpub.*$/igm);
+                                    // validator.cosmosaccpub = result.match(/dx0pub.*$/igm);
+                                    // validator.cosmosaccpub = validator.dx0accpub[0].trim();
+                                    // validator.operator_pubkey = result.match(/dx0valoperpub.*$/igm);
                                     // validator.operator_pubkey = validator.operator_pubkey[0].trim();
-                                    // validator.consensus_pubkey = result.match(/cosmosvalconspub.*$/igm);
+                                    // validator.consensus_pubkey = result.match(/dx0svalconspub.*$/igm);
                                     // validator.consensus_pubkey = validator.consensus_pubkey[0].trim();
-
-
-
                                     // });
                                 }
                                 else{
@@ -512,7 +513,7 @@ Meteor.methods({
                                 console.log('Checking all validators against db...')
                                 let dbValidators = {}
                                 Validators.find({}, {fields: {consensus_pubkey: 1, status: 1}}
-                                    ).forEach((v) => dbValidators[v.consensus_pubkey] = v.status)
+                                ).forEach((v) => dbValidators[v.consensus_pubkey] = v.status)
                                 Object.keys(validatorSet).forEach((conPubKey) => {
                                     let validatorData = validatorSet[conPubKey];
                                     // Active validators should have been updated in previous steps
@@ -521,9 +522,9 @@ Meteor.methods({
 
                                     if (dbValidators[conPubKey] == undefined) {
                                         console.log(`validator with consensus_pubkey ${conPubKey} not in db`);
-                                        let pubkeyType = Meteor.settings.public.secp256k1?'tendermint/PubKeySecp256k1':'tendermint/PubKeyEd25519';
+
                                         validatorData.pub_key = {
-                                            "type" : pubkeyType,
+                                            "type" : "tendermint/PubKeyEd25519",
                                             "value": Meteor.call('bech32ToPubkey', conPubKey)
                                         }
                                         validatorData.address = getAddress(validatorData.pub_key);
@@ -550,9 +551,10 @@ Meteor.methods({
                                     let profileUrl =  getValidatorProfileUrl(validator.description.identity)
                                     if (profileUrl) {
                                         bulkValidators.find({address: validator.address}
-                                            ).upsert().updateOne({$set:{'profile_url':profileUrl}});
+                                        ).upsert().updateOne({$set:{'profile_url':profileUrl}});
                                     }
                                 } catch (e) {
+                                    console.log(profileUrl);
                                     console.log(e)
                                 }
                             })
