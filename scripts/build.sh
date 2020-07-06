@@ -9,10 +9,18 @@ meteor build --architecture=os.linux.x86_64 ../build
 LOCAL=8.210.117.181
 #EXTRACT="cd /www/wwwdp;bash tar -xvf dpexplorer.tar.gz -C /www/wwwdp"
 EXTRACT="cd /www/wwwdp; tar -xvf dpexplorer.tar.gz;bash"
-if [ $USER  == 'hesk' ]
+
+ANDUPLOAD=$1
+
+if [[ $ANDUPLOAD == "u" ]]
 then
-	scp $BUILD_DIR/dpexplorer.tar.gz root@$LOCAL:/www/wwwdp
-	ssh -t root@$LOCAL $EXTRACT
-	echo "local"
+
+    if [ $USER  == 'hesk' ]
+    then
+        scp $BUILD_DIR/dpexplorer.tar.gz root@$LOCAL:/www/wwwdp
+        ssh -t root@$LOCAL $EXTRACT
+        echo "local"
+    fi
+    #cd bundle/programs/server && npm install
+
 fi
-#cd bundle/programs/server && npm install
