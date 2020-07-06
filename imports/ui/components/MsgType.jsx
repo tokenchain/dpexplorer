@@ -6,14 +6,20 @@ const T = i18n.createComponent ();
 
 export const MsgType = (props) => {
     switch (props.type) {
+        //did
+        case "dap/didDoc":
+            return <Badge color="warning">Create DID</Badge>;
+        case "ixo/didDoc":
+            return <Badge color="warning">Create DID</Badge>;
+
         // bank
         case "cosmos-sdk/MsgSend":
             return <Badge color="success"><T>messageTypes.send</T></Badge>
         case "cosmos-sdk/MsgMultiSend":
             return <Badge color="success"><T>messageTypes.multiSend</T></Badge>
-        case "ixo/didDoc":
-            return <Badge color="warning"><T>messageTypes.createValidator</T></Badge>;
-        // staking
+
+
+        //staking
         case "cosmos-sdk/MsgCreateValidator":
             return <Badge color="warning"><T>messageTypes.createValidator</T></Badge>;
         case "cosmos-sdk/MsgEditValidator":

@@ -193,20 +193,22 @@ export default class Validator extends Component {
 
                 return <Row className="validator-details">
                     <Helmet>
-                        <title>{moniker} - Cosmos Validator | The DP</title>
+                        <title>{moniker} - Darkpool Validator | The DP</title>
                         <meta name="description" content={details}/>
                     </Helmet>
                     <Col xs={12}>
-                        <Link to="/validators" className="btn btn-link"><i className="fas fa-caret-left"></i>
-                            <T>common.backToList</T></Link>
+                        <Link to="/validators" className="btn btn-link"><i
+                            className="fas fa-caret-left"></i><T>common.backToList</T></Link>
                     </Col>
                     <Col md={4}>
                         <Card body className="text-center">
                             <div className="shareLink d-flex align-self-end">{this.renderShareLink ()}</div>
-                            <div className="validator-avatar"><Avatar moniker={moniker}
-                                                                      profileUrl={this.props.validator.profile_url}
-                                                                      address={this.props.validator.address}
-                                                                      list={false}/></div>
+                            <div className="validator-avatar">
+                                <Avatar moniker={moniker}
+                                        profileUrl={this.props.validator.profile_url}
+                                        address={this.props.validator.address}
+                                        list={false}/>
+                            </div>
                             <div className="moniker text-primary">{website ?
                                 <a href={addhttp (this.props.validator.description.website)} target="_blank">{moniker}
                                     <i className="fas fa-link"></i></a> : moniker}</div>

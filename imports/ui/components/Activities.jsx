@@ -16,8 +16,8 @@ MultiSend = (props) => {
                 {props.msg.value.inputs.map ((data, i) => {
                     return <li key={i}><Account address={data.address}/>
                         <T>activities.sent</T> {data.coins.map ((coin, j) => {
-                            return <span key={j}
-                                         className="text-success">{new Coin (coin.amount, coin.denom).toString ()}</span>
+                            return <em key={j}
+                                       className="text-success">{new Coin (coin.amount, coin.denom).toString ()}</em>
                         })}
                     </li>
                 })}
@@ -27,8 +27,8 @@ MultiSend = (props) => {
                 {props.msg.value.outputs.map ((data, i) => {
                     return <li key={i}><Account address={data.address}/>
                         <T>activities.received</T> {data.coins.map ((coin, j) => {
-                            return <span key={j}
-                                         className="text-success">{new Coin (coin.amount, coin.denom).toString ()}</span>
+                            return <em key={j}
+                                       className="text-success">{new Coin (coin.amount, coin.denom).toString ()}</em>
                         })}</li>
                 })}
             </ul>
@@ -43,33 +43,34 @@ export class Activites extends Component {
 
     render () {
         // console.log(this.props);
-        const msg = this.props.msg;
+        const singleMsg = this.props.msg;
         const events = [];
-       // console.log ("invalid", this.props.invalid);
-        if (this.props.invalid) {
-            return <p>{JSON.stringify (msg)}</p>
+        const invalid = this.props.invalid;
+        // console.log ("invalid", this.props.invalid);
+        if (invalid) {
+            return <p>{JSON.stringify (singleMsg)}</p>
         } else {
-
             for (let i in this.props.events) {
                 events[this.props.events[i].type] = this.props.events[i].attributes
             }
 
-
-            if (msg.amount.length > 0) {
+            if (singleMsg.value.amount.length > 0) {
                 let amount = '';
-                amount = msg.amount.map ((coin) => new Coin (coin.amount, coin.denom).toString ()).join (', ');
+                amount = singleMsg.value.amount.map ((coin) => new Coin (coin.amount, coin.denom).toString ()).join (', ');
 
-                return <p><T>activities.from</T><Account address={msg.from_address}/> {(this.props.invalid) ?
-                    <T>activities.failedTo</T> : ''}<MsgType type="cosmos-sdk/MsgSend"/> <span
+                return <p><T>activities.from</T> <Account address={singleMsg.value.from_address}/> {invalid ?
+                    <T>activities.failedTo</T> : ''}<MsgType type={singleMsg.type}/> <span
                     className="text-success">{amount}</span> <T>activities.to</T> <span className="address"><Account
-                    address={msg.to_address}/></span><T>common.fullStop</T></p>
+                    address={singleMsg.value.to_address}/></span><T>common.fullStop</T></p>
 
             } else {
-                return <p>{JSON.stringify (msg)}</p>
+                return <p>{JSON.stringify (singleMsg)}</p>
             }
+
         }
     }
 }
+
 
 export class Payload extends Component {
     constructor (props) {

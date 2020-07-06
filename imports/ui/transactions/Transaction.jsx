@@ -11,7 +11,37 @@ import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js';
 import TimeStamp from '../components/TimeStamp.jsx';
 
-const T = i18n.createComponent();
+const T = i18n.createComponent ();
+export default class Transaction extends Component {
+    constructor (props) {
+        super (props);
+        let showdown = require ('showdown');
+        showdown.setFlavor ('github');
+        let denom = this.props.denom;
+    }
+
+    render () {
+        if (this.props.loading) {
+            return <Container id="transaction">
+                <Spinner type="grow" color="primary"/>
+            </Container>
+        } else {
+            if (this.props.transactionExist) {
+                let tx = this.props.transaction;
+                return <Container id="transaction">
+
+                </Container>
+            }
+            else {
+                return <Container id="transaction">
+                    <div><T>transactions.noTxFound</T></div>
+                </Container>
+            }
+        }
+    }
+}
+
+/*
 export default class Transaction extends Component{
     constructor(props){
         super(props);
@@ -21,8 +51,8 @@ export default class Transaction extends Component{
     }
 
     render(){
-        
-        
+
+
         if (this.props.loading){
             return <Container id="transaction">
                 <Spinner type="grow" color="primary" />
@@ -66,7 +96,7 @@ export default class Transaction extends Component{
                                 <Col md={8} className="value">{numbro(tx.gas_used).format("0,0")} / {numbro(tx.gas_wanted).format("0,0")}</Col>
                                 <Col md={4} className="label"><T>transactions.memo</T></Col>
                                 <Col md={8} className="value"><Markdown markup={ tx.tx.value.memo } /></Col>
-                              
+
                             </Row>
                         </CardBody>
                     </Card>
@@ -83,4 +113,4 @@ export default class Transaction extends Component{
             }
         }
     }
-}
+}*/
