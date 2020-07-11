@@ -36,6 +36,14 @@ MultiSend = (props) => {
     </div>
 }
 
+const send_fund = (amount, type, from, to, invalid) => {
+    return <p>
+        <MsgType type={type}/> <span
+        className="text-success">{amount}</span> <T>activities.from</T> <Account address={from}/> {invalid ?
+        <T>activities.failedTo</T> : ''} <T>activities.to</T> <span className="address"><Account
+        address={to}/></span><T>common.fullStop</T></p>
+}
+
 export class Activites extends Component {
     constructor (props) {
         super (props);
@@ -57,11 +65,7 @@ export class Activites extends Component {
             if (singleMsg.value.amount.length > 0) {
                 let amount = '';
                 amount = singleMsg.value.amount.map ((coin) => new Coin (coin.amount, coin.denom).toString ()).join (', ');
-
-                return <p><T>activities.from</T> <Account address={singleMsg.value.from_address}/> {invalid ?
-                    <T>activities.failedTo</T> : ''}<MsgType type={singleMsg.type}/> <span
-                    className="text-success">{amount}</span> <T>activities.to</T> <span className="address"><Account
-                    address={singleMsg.value.to_address}/></span><T>common.fullStop</T></p>
+                return send_fund (amount, singleMsg.type, singleMsg.value.from_address, singleMsg.value.to_address, invalid);
 
             } else {
                 return <p>{JSON.stringify (singleMsg)}</p>

@@ -219,8 +219,8 @@ activities:
     withA: 'with a'
     withAmount: 'with <span class="text-info">{$amount}</span>'
 messageTypes:
-    send: 'Send'
-    multiSend: 'Multi Send'
+    send: 'Send Fund'
+    multiSend: 'MultiSign Send Fund'
     createValidator: 'Create Validator'
     editValidator: 'Edit Validator'
     delegate: 'Delegate'

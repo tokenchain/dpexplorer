@@ -55,5 +55,39 @@ const errors = {
         105 : "Self Delegation Too Low"
     }
 }
+import numbro from 'numbro';
 
-export default ERR = errors;
+export default class ErrorCheck {
+    constructor (code, codespace, payload) {
+        this.code = code;
+        this.space = codespace;
+        this.message = "Unknown error";
+        this.payload = payload;
+        this.process ();
+    }
+
+    foundError () {
+        return errors.hasOwnProperty (this.space);
+    }
+
+    GetMessage () {
+        return this.message;
+    }
+
+    process () {
+        if (this.foundError ()) {
+            if (errors[this.space].hasOwnProperty (this.code)) {
+                this.message = errors[this.space][this.code];
+            }
+
+
+            if (this.space == "sdk" && this.code == 12) {
+                const { gas_used, gas_wanted } = this.payload;
+                this.message = this.message + "gas uses (" + numbro (gas_used).format ("0,0") + ") > gas wanted (" + numbro (gas_wanted).format ("0,0") + ")";
+
+            }
+        }
+
+
+    }
+}

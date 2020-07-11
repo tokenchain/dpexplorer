@@ -24,6 +24,7 @@ import { Helmet } from 'react-helmet';
 import { WithdrawButton, TransferButton } from '../ledger/LedgerActions.jsx';
 import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js'
+import HanUpperCase from '/both/utils/hannum.js'
 
 const T = i18n.createComponent ();
 
@@ -221,7 +222,7 @@ export default class AccountDetails extends Component {
             }, () => {
                 this.getBalance ();
             })
-          //  console.log ("on update available coins", this.state.available);
+            //  console.log ("on update available coins", this.state.available);
         }
     }
 
@@ -239,12 +240,12 @@ export default class AccountDetails extends Component {
     displayStakingDenom (denomType) {
         let findCoinType = Meteor.settings.public.coins.find (({ denom }) => denom === denomType);
         let currentCoinType = findCoinType ? findCoinType.displayName : "-";
-      //  console.log (denomType, currentCoinType);
+        //  console.log (denomType, currentCoinType);
         return currentCoinType;
     }
 
     renderDropDown () {
-       // console.log ("render drop down...", this.state.available);
+        // console.log ("render drop down...", this.state.available);
         return <UncontrolledDropdown direction='down' size="sm" className='account-dropdown'>
             <DropdownToggle caret>
                 &nbsp;{this.displayStakingDenom (this.state.denom)}
@@ -271,6 +272,12 @@ export default class AccountDetails extends Component {
         let finder = (coins).find (({ denom }) => denom === this.state.denom);
         let coinFinder = finder ? new Coin (finder.amount, finder.denom).toString (4) : "N/A";
         return coinFinder
+    }
+
+    findCoinHans (coins) {
+        let finder = (coins).find (({ denom }) => denom === this.state.denom);
+        // let coinFinder = finder ? new Coin (finder.amount, finder.denom).toString (4) : "N/A";
+        return HanUpperCase.renderUpperCase (finder.amount, finder.denom);
     }
 
     findValue (params) {
@@ -386,6 +393,8 @@ export default class AccountDetails extends Component {
                                              className="value text-right">{this.findCoin (this.state.total)}</Col>
                                         <Col xs={12}
                                              className="dollar-value text-right text-secondary">~{numbro ((this.findValue (this.state.total)) / Coin.StakingCoin.fraction * this.state.price).format ("$0,0.0000a")} ({numbro (this.state.price).format ("$0,0.00")}/{Coin.StakingCoin.displayName})</Col>
+                                        <Col xs={12}
+                                             className="dollar-value text-right text-secondary">{this.findCoinHans (this.state.total)} </Col>
                                     </Row>
                                 </Col>
                             </Row>

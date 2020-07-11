@@ -217,8 +217,8 @@ activities:
     withTitle: '治理提案主題為'
     withA: '投了'
 messageTypes:
-    send: '發送'
-    multiSend: '多重發送'
+    send: '發送錢'
+    multiSend: '多簽發送'
     createValidator: '建立驗證人'
     editValidator: '編輯驗證人資料'
     delegate: '委托'
