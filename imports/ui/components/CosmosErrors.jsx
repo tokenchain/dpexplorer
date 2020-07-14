@@ -40,3 +40,24 @@ export default class CosmosErrors extends Component {
 }
 
 CosmosErrors.propTypes = { errors : PropTypes.object.isRequired }
+
+export class DPErrorsBadge extends Component {
+    constructor (props) {
+        super (props);
+    }
+
+    render () {
+        const { code, raw_log, codespace, txhash } = this.props.errors;
+        const checker = new Check (code, codespace, this.props.errors);
+        const content = this.props.errors;
+        return <Row>
+            <Col xs={{ size : 12, order : "last" }} className="error">
+                <Alert color="danger">
+                    <div><Badge color="dark">{checker.GetMessage ()}</Badge> {raw_log} </div>
+                </Alert>
+            </Col>
+        </Row>
+    }
+}
+
+DPErrorsBadge.propTypes = { errors : PropTypes.object.isRequired }

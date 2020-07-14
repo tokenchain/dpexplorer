@@ -37,8 +37,7 @@ MultiSend = (props) => {
 }
 
 const send_fund = (amount, type, from, to, invalid) => {
-    return <p>
-        <MsgType type={type}/> <span
+    return <p><MsgType type={type}/> <span
         className="text-success">{amount}</span> <T>activities.from</T> <Account address={from}/> {invalid ?
         <T>activities.failedTo</T> : ''} <T>activities.to</T> <span className="address"><Account
         address={to}/></span><T>common.fullStop</T></p>
@@ -52,15 +51,15 @@ export class Activites extends Component {
     render () {
         // console.log(this.props);
         const singleMsg = this.props.msg;
-        const events = [];
+        // const events = [];
         const invalid = this.props.invalid;
         // console.log ("invalid", this.props.invalid);
         if (invalid) {
-            return <p>{JSON.stringify (singleMsg)}</p>
+            return <p>🛑 INVALID TRANSACTION:  {JSON.stringify (singleMsg)}</p>
         } else {
-            for (let i in this.props.events) {
-                events[this.props.events[i].type] = this.props.events[i].attributes
-            }
+            /* for (let i in this.props.events) {
+                 events[this.props.events[i].type] = this.props.events[i].attributes
+             }*/
 
             if (singleMsg.value.amount.length > 0) {
                 let amount = '';
@@ -69,6 +68,8 @@ export class Activites extends Component {
 
             } else {
                 return <p>{JSON.stringify (singleMsg)}</p>
+
+
             }
 
         }

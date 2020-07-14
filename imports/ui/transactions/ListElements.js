@@ -30,7 +30,7 @@ function fee_cast (content) {
 function list_msg_rnd (messages, isValidTrans, events) {
     if (messages.length == 0) return "";
     return messages.map ((msg, i) => {
-        return <Card body key={i}><Activites msg={msg} invalid={!isValidTrans} events={events}/></Card>
+        return <Card body key={i}><Activites msg={msg} invalid={!isValidTrans}/></Card>
     })
 }
 

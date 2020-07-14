@@ -16,12 +16,44 @@ autoformat = (value) => {
 }
 
 const coinList = Meteor.settings.public.coins;
-console.log ("loaded coin", coinList);
 for (let i in coinList) {
     const coin = coinList[i];
     if (!coin.displayNamePlural) {
         coin.displayNamePlural = coin.displayName + 's';
     }
+}
+
+const digitUppercase = function (n, nom) {
+    var fraction = ['角', '分'];
+    var digit = [
+        '零', '壹', '贰', '叁', '肆',
+        '伍', '陆', '柒', '捌', '玖'
+    ];
+    var unit = [
+        ['元', '万', '亿'],
+        ['', '拾', '佰', '仟']
+    ];
+    var head = n < 0 ? '欠' : '';
+    n = Math.abs (n);
+    var s = '';
+    for (var i = 0; i < fraction.length; i++) {
+        s += (digit[Math.floor (n * 10 * Math.pow (10, i)) % 10] + fraction[i]).replace (/零./, '');
+    }
+    s = s || '整';
+    n = Math.floor (n);
+    for (var i = 0; i < unit[0].length && n > 0; i++) {
+        var p = '';
+        for (var j = 0; j < unit[1].length && n > 0; j++) {
+            p = digit[n % 10] + unit[1][j] + p;
+            n = Math.floor (n / 10);
+        }
+        s = p.replace (/(零.)*零$/, '').replace (/^$/, '零') + unit[0][i] + s;
+    }
+    s = s + new String (nom).toUpperCase ();
+    return head + s.replace (/(零.)*零元/, '元')
+        .replace (/(零.)+/g, '零')
+        .replace (/^整$/, '零整'
+        );
 }
 
 export default class Coin {
@@ -81,5 +113,15 @@ export default class Coin {
             amount = numbro (amount).format (formatter)
         }
         return `${amount} ${Coin.StakingCoin.displayName}`;
+    }
+
+    toHanString () {
+        // default to display in mint denom if it has more than 4 decimal places
+        let minStake = Coin.StakingCoin.fraction / 1000
+        if (this.amount < minStake) {
+            return `${numbro (this.amount).format ('0,0.0000')} ${this._coin.denom}`;
+        } else {
+            return `${digitUppercase (this.stakingAmount, this._coin.denom)}`
+        }
     }
 }

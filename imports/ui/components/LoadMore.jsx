@@ -23,12 +23,7 @@ export const StaticLoad = (props) => {
 }
 
 export const LoadSilver = (props) => {
-    if (props.show) {
-        return <div id="loadmore" className="text-center disc-box">
-            <div class="cd disc small"></div>
-        </div>
-    }
-    else {
-        return <div/>
-    }
+    return <div id="loadmore" className="text-center disc-box">
+        <div class="record gold disc small"></div>
+    </div>
 }

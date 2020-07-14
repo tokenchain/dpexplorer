@@ -24,7 +24,6 @@ import { Helmet } from 'react-helmet';
 import { WithdrawButton, TransferButton } from '../ledger/LedgerActions.jsx';
 import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js'
-import HanUpperCase from '/both/utils/hannum.js'
 
 const T = i18n.createComponent ();
 
@@ -276,8 +275,8 @@ export default class AccountDetails extends Component {
 
     findCoinHans (coins) {
         let finder = (coins).find (({ denom }) => denom === this.state.denom);
-        // let coinFinder = finder ? new Coin (finder.amount, finder.denom).toString (4) : "N/A";
-        return HanUpperCase.renderUpperCase (finder.amount, finder.denom);
+        let coinFinder = finder ? new Coin (finder.amount, finder.denom).toHanString () : "N/A";
+        return coinFinder;
     }
 
     findValue (params) {
