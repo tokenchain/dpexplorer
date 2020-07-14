@@ -107,7 +107,7 @@ const CoinAmount = (props) => {
     else{
         let denomFinder =  Meteor.settings.public.coins.find(({ denom }) => denom === props.denom);
         let displayDenom = denomFinder ? denomFinder.displayName : null;
-        
+
         let finder = props.amount.find(({ denom }) => denom === props.denom)
         coin = finder ? new Coin(finder.amount, finder.denom).toString(4) : '0.0000 ' + displayDenom;
     }
@@ -592,7 +592,7 @@ class LedgerButton extends Component {
                 <TabContent className='ledger-modal-tab' activeTab={this.state.activeTab}>
                     <TabPane tabId="0"></TabPane>
                     <TabPane tabId="1">
-                        Please connect your Ledger device and open Cosmos App.
+                        Please connect your Ledger device and open Darkpool App.
                     </TabPane>
                     {this.renderActionTab()}
                     {this.renderConfirmationTab()}
@@ -890,7 +890,7 @@ class SubmitProposalButton extends LedgerButton {
             </InputGroup>
             <Input name="memo" onChange={this.handleInputChange}
                 placeholder="Memo(optional)" type="textarea" value={this.state.memo}/>
-            <div>your available balance: <Amount coin={maxAmount}/></div> 
+            <div>your available balance: <Amount coin={maxAmount}/></div>
         </TabPane>
     }
 
@@ -1065,7 +1065,7 @@ LedgerButton.propTypes = {
 
 DelegationButtons.propTypes = {
     validator: PropTypes.shape({
-        _id:PropTypes.shape({ 
+        _id:PropTypes.shape({
             _str: PropTypes.string
         }),
     address: PropTypes.string,

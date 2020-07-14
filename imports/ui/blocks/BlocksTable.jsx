@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Row, Col } from 'reactstrap';
 import HeaderRecord from './HeaderRecord.jsx';
 import Blocks from '/imports/ui/blocks/ListContainer.js'
-import { LoadMore } from '../components/LoadMore.jsx';
+import { LoadSilver } from '../components/LoadMore.jsx';
 import { Route, Switch } from 'react-router-dom';
 import Sidebar from "react-sidebar";
 import Block from './BlockContainer.js';
@@ -26,15 +26,15 @@ export default class BlocksTable extends Component {
     isBottom(el) {
         return el.getBoundingClientRect().bottom <= window.innerHeight;
     }
-      
+
     componentDidMount() {
         document.addEventListener('scroll', this.trackScrolling);
     }
-    
+
     componentWillUnmount() {
         document.removeEventListener('scroll', this.trackScrolling);
     }
-    
+
     trackScrolling = () => {
         const wrappedElement = document.getElementById('block-table');
         if (this.isBottom(wrappedElement)) {
@@ -71,26 +71,26 @@ export default class BlocksTable extends Component {
                 }
                 Meteor.clearTimeout(timer);
             },500)
-        }); 
+        });
     }
 
     render(){
         return <div>
             <Helmet>
-                <title>Latest Blocks on Cosmos Hub | The Big Dipper</title>
-                <meta name="description" content="Latest blocks committed by validators on Cosmos Hub" />
+                <title>Latest Blocks on Darkpool Hub | The DP Hub</title>
+                <meta name="description" content="Latest blocks committed by validators on Darkpool Hub" />
             </Helmet>
             <Row>
                 <Col md={3} xs={12}><h1 className="d-none d-lg-block"><T>blocks.latestBlocks</T></h1></Col>
                 <Col md={9} xs={12} className="text-md-right"><ChainStates /></Col>
             </Row>
             <Switch>
-                <Route path="/blocks/:blockId" render={(props)=> <Sidebar 
+                <Route path="/blocks/:blockId" render={(props)=> <Sidebar
                     sidebar={<Block {...props} />}
                     open={this.state.sidebarOpen}
                     onSetOpen={this.onSetSidebarOpen}
-                    styles={{ sidebar: { 
-                        background: "white", 
+                    styles={{ sidebar: {
+                        background: "white",
                         position: "fixed",
                         width: '85%',
                         zIndex: 4
@@ -104,7 +104,7 @@ export default class BlocksTable extends Component {
                 <HeaderRecord />
                 <Blocks limit={this.state.limit} />
             </Container>
-            <LoadMore show={this.state.loadmore} />
+            <LoadSilver show={this.state.loadmore} />
         </div>
     }
 }

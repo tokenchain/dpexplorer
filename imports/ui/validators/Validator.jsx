@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Markdown } from 'react-showdown';
 import Block from '../components/Block.jsx';
 import Avatar from '../components/Avatar.jsx';
+import { StaticLoad } from '../components/LoadMore.jsx';
 import PowerHistory from '../components/PowerHistory.jsx';
 import {
     Badge, Row, Col, Card,
@@ -181,7 +182,8 @@ export default class Validator extends Component {
 
     render () {
         if (this.props.loading) {
-            return <Spinner type="grow" color="primary"/>
+            // return <Spinner type="grow" color="primary"/>
+            return <StaticLoad color="primary"/>
         }
         else {
             if (this.props.validatorExist) {

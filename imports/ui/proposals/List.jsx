@@ -7,11 +7,11 @@ import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js'
 import TimeStamp from '../components/TimeStamp.jsx';
 import { SubmitProposalButton } from '../ledger/LedgerActions.jsx';
-
+import { StaticLoad } from '../components/LoadMore.jsx';
 const T = i18n.createComponent();
 
 const ProposalRow = (props) => {
-    
+
     return <tr>
         <th className="d-none d-sm-table-cell counter">{props.proposal.proposalId}</th>
         <td className="title"><Link to={"/proposals/"+props.proposal.proposalId}>{props.proposal.content.value.title}</Link></td>
@@ -64,7 +64,7 @@ export default class List extends Component{
 
     render(){
         if (this.props.loading){
-            return <Spinner type="grow" color="primary" />
+            return <StaticLoad color="primary" size="small"/>
         }
         else{
             return (

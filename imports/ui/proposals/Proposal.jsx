@@ -156,7 +156,7 @@ export default class Proposal extends Component{
                     data: data.length == 0?emtpyData:data,
                     totalVotingPower: totalVotingPower,
                     maxVotingPower: maxVotingPower
-                })    
+                })
             }
         };
 
@@ -274,7 +274,7 @@ export default class Proposal extends Component{
                 let totalVotingPower = this.props.chain.activeVotingPower * powerReduction;
                 return <div>
                     <Helmet>
-                        <title>{this.props.proposal.content.value.title} | The Big Dipper</title>
+                        <title>{this.props.proposal.content.value.title} | The DP Hub</title>
                         <meta name="description" content={this.props.proposal.content.value.description} />
                     </Helmet>
 
@@ -299,13 +299,13 @@ export default class Proposal extends Component{
                         {/* Community Pool Spend Proposal */}
                         {(this.props.proposal.content.type === 'cosmos-sdk/CommunityPoolSpendProposal')?<Row className="mb-2 border-top">
                             <Col md={3} className="label"><T>proposals.recipient</T></Col>
-                            <Col md={9} className="value"> <Account address={this.props.proposal.content.value.recipient}/></Col> 
+                            <Col md={9} className="value"> <Account address={this.props.proposal.content.value.recipient}/></Col>
                         </Row>:null}
                         {(this.props.proposal.content.type === 'cosmos-sdk/CommunityPoolSpendProposal')?<Row className="mb-2 border-top">
                             <Col md={3} className="label"><T>proposals.amount</T></Col>
                             <Col md={9} className="value"> {this.props.proposal.content.value.amount.map((amount, j) => {
                                 return <div key={j}>{new Coin(amount.amount, amount.denom).toString()}</div>
-                            })}</Col> 
+                            })}</Col>
                         </Row>:null}
                         <Row className="mb-2 border-top">
                             <Col md={3} className="label"><T>proposals.proposalType</T></Col>

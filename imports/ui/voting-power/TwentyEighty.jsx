@@ -5,6 +5,7 @@ import { Row, Col, Card, CardImg, CardText, CardBody,
 import numbro from 'numbro';
 import i18n from 'meteor/universe:i18n';
 import SentryBoundary from '../components/SentryBoundary.jsx';
+import {StaticLoad} from '../components/LoadMore.jsx';
 
 const T = i18n.createComponent();
 export default class TwentyEighty extends Component{
@@ -51,7 +52,7 @@ export default class TwentyEighty extends Component{
                         callbacks: {
                             label: function(tooltipItem, data) {
                                 var label = data.labels[tooltipItem.index] || '';
-            
+
                                 if (label) {
                                     label += ' hold ';
                                 }
@@ -68,22 +69,22 @@ export default class TwentyEighty extends Component{
 
     render(){
         if (this.props.loading){
-            return <Spinner type="grow" color="primary" />
+            return <StaticLoad color="primary" />
         }
         else{
             if (this.props.statsExist && this.props.stats){
-                return (                    
+                return (
                     <Card>
                         <div className="card-header"><T>votingPower.pareto</T></div>
                         <CardBody>
                             <SentryBoundary><Pie data={this.state.data} options={this.state.options} /></SentryBoundary>
                         </CardBody>
                     </Card>
-                );   
+                );
             }
             else{
                 return <div></div>
             }
         }
     }
-}    
+}

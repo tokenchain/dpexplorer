@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet';
 import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js';
 import TimeStamp from '../components/TimeStamp.jsx';
-
+//import { StaticLoad } from '../components/Loadmore.jsx';
 const T = i18n.createComponent ();
 export default class Transaction extends Component {
     constructor (props) {
@@ -23,13 +23,13 @@ export default class Transaction extends Component {
     render () {
         if (this.props.loading) {
             return <Container id="transaction">
-                <Spinner type="grow" color="primary"/>
+                loading...
             </Container>
         } else {
             if (this.props.transactionExist) {
                 let tx = this.props.transaction;
                 return <Container id="transaction">
-
+                    Transactions exist .... to be worked on.
                 </Container>
             }
             else {
@@ -63,7 +63,7 @@ export default class Transaction extends Component{
                 let tx = this.props.transaction;
                 return <Container id="transaction">
                     <Helmet>
-                        <title>Transaction {tx.txhash} on Cosmos Hub | The Big Dipper</title>
+                        <title>Transaction {tx.txhash} on Cosmos Hub | The DP Hub</title>
                         <meta name="description" content={"Details of transaction "+tx.txhash} />
                     </Helmet>
                     <h4><T>transactions.transaction</T> {(!tx.code)?<TxIcon valid />:<TxIcon />}</h4>
