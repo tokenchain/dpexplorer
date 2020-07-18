@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import { TxIcon } from '../components/Icons.jsx';
 import { Activites } from '../components/Activities.jsx';
+import { BondIssuranceDetail } from '../components/MsgType.jsx';
 import CosmosErrors, { DPErrorsBadge } from '../components/CosmosErrors.jsx';
 import { Link } from 'react-router-dom';
 import { Markdown } from 'react-showdown';
@@ -11,6 +12,8 @@ import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js';
 import TimeStamp from '../components/TimeStamp.jsx';
 import { StaticLoad, LoadSilver } from '../components/LoadMore.jsx';
+import { toast } from "react-toastify";
+import { Activities, DxpActivities } from "../components/Activities";
 
 const T = i18n.createComponent ();
 export default class Transaction extends Component {
@@ -18,6 +21,20 @@ export default class Transaction extends Component {
         super (props);
         let showdown = require ('showdown');
         showdown.setFlavor ('github');
+    }
+
+    handleCopy = (e) => {
+        const el = document.createElement ('textarea');
+        el.value = e.target.dataset.address;
+        el.setAttribute ('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        e.target.appendChild (el);
+        el.select ();
+        document.execCommand ('copy');
+        e.target.removeChild (el);
+
+        toast ("👌🏼 Block hash copied.");
     }
 
     render () {
@@ -34,7 +51,7 @@ export default class Transaction extends Component {
                     {Title (content)}
                     {Topic (content)}
                     {ErrorTrans (content)}
-                    {detail (content)}
+                    {detail (content, this.handleCopy)}
                     {activity (content)}
                 </Container>
             } else {
@@ -59,13 +76,14 @@ const Topic = (tx) => {
 const ErrorTrans = (tx) => {
     return (tx.code) ? <DPErrorsBadge errors={tx}/> : ''
 }
-const detail = (tx) => {
+const detail = (tx, copyfunction) => {
     return <Card>
         <div className="card-header"><T>common.information</T></div>
         <CardBody>
             <Row>
                 <Col md={2} className="label"><T>common.hash</T></Col>
-                <Col md={10} className="value text-nowrap overflow-auto address">{tx.txhash}</Col>
+                <Col md={10} className="value text-nowrap overflow-auto address" data-address={tx.txhash}
+                     onClick={copyfunction}>{tx.txhash}<i className="material-icons copy-button">file_copy</i></Col>
                 <Col md={2} className="label"><T>common.height</T></Col>
                 <Col md={10} className="value">
                     <Link to={"/blocks/" + tx.height}>{numbro (tx.height).format ("0,0")}</Link>
@@ -87,7 +105,8 @@ const detail = (tx) => {
 
 
 const feeWrapper = (tx) => {
-    return <Col md={10} className="value">{(tx.tx.value.fee.amount.length > 0) ? tx.tx.value.fee.amount.map ((fee, i) => {
+    return <Col md={10}
+                className="value">{(tx.tx.value.fee.amount.length > 0) ? tx.tx.value.fee.amount.map ((fee, i) => {
         return <span className="text-nowrap"
                      key={i}> {((fee.amount / Meteor.settings.public.stakingFraction) >= 1) ? (new Coin (parseFloat (fee.amount), fee.denom)).stakeString () : (new Coin (parseFloat (fee.amount), fee.denom)).mintString ()} </span>
     }) : <span><T>transactions.noFee</T></span>}</Col>
@@ -95,42 +114,74 @@ const feeWrapper = (tx) => {
 const activity = (content) => {
 
     const valid_trans = content.hasOwnProperty ("logs") && content.logs.length > 0;
-    const has_msg = content.tx.value.hasOwnProperty ("msg") && content.tx.value.msg.length > 0;
-    const has_docdid = content.tx.hasOwnProperty ("payload") && content.tx.payload.length > 0;
+    const has_cosmos_msg = content.tx.value.hasOwnProperty ("msg") && content.tx.value.msg.length > 0;
+    const has_did_base_msg = content.tx.value.hasOwnProperty ("payload") && content.tx.value.payload.length > 0;
 
     const booleans = {
-        has_msg,
-        has_docdid,
+        has_cosmos_msg,
+        has_did_base_msg,
         valid_trans
+    }
+    /* if (has_did_base_msg && content.tx.value.type == "bonds/MsgCreateBond") {
+         return <Card>
+             <div className="card-header"><T>transactions.activities</T></div>
+             <CardBody>{
+
+                 content.tx.value.payload.map ((m, i) => {
+                     return <Row key={i}>
+                         <BondIssuranceDetail bondAttrs={m.value}/>
+                     </Row>
+                 })
+
+
+             }</CardBody>
+         </Card>
+     } else */
+
+    if (has_did_base_msg) {
+        return <Card>
+            <div className="card-header"><T>transactions.activities</T></div>
+            <CardBody>{
+
+                content.tx.value.payload.map ((m, i) => {
+                    return <Row key={i}>
+                        <DxpActivities msg={m} invalid={!valid_trans}/>
+                    </Row>
+                })
+
+
+            }</CardBody>
+        </Card>
+
+    }
+    if (has_cosmos_msg) {
+        return <Card>
+            <div className="card-header"><T>transactions.activities</T></div>
+            <CardBody>{
+                content.tx.value.msg.map ((m, i) => {
+                    return <Row key={i}>
+                        <Activities msg={m} invalid={!valid_trans}/>
+                    </Row>
+
+                })
+
+            }</CardBody>
+        </Card>
     }
 
 
     return <Card>
         <div className="card-header"><T>transactions.activities</T></div>
-        <CardBody>
-
-            {
-                has_msg ? content.tx.value.msg.map ((m, i) => {
-
-                    let display_txt = JSON.stringify (m);
-                    return <Row key={i}>
-                        <Activites msg={m} invalid={!(has_msg && valid_trans)}/>
-                    </Row>
-                }) : ""
-            }
-
-        </CardBody>
+        <CardBody> N/A </CardBody>
     </Card>
 }
 
-/*
+function card_wrapper (elements) {
+    return <Card>
+        <div className="card-header"><T>transactions.activities</T></div>
+        <CardBody>{elements}</CardBody></Card>
+}
 
-
-
-                        <Activities msg={m} invalid={valid_trans}/>
-
-
- */
 const activity_detail = (content) => {
 
     const valid_trans = content.hasOwnProperty ("logs") && content.logs.length > 0;

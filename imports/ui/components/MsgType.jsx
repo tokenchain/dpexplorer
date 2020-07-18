@@ -1,23 +1,59 @@
 import React from 'react';
 import { Badge } from 'reactstrap';
 import i18n from 'meteor/universe:i18n';
+import numbro from "numbro";
+import moment from "moment/moment";
+import { Container, Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
+import Account from '../components/Account.jsx';
+import Coin from "../../../both/utils/coins";
 
 const T = i18n.createComponent ();
-
+/*
+	cdc.RegisterConcrete(&Bond{}, "bonds/Bond", nil)
+	cdc.RegisterConcrete(&FunctionParam{}, "bonds/FunctionParam", nil)
+	cdc.RegisterConcrete(&Batch{}, "bonds/Batch", nil)
+	cdc.RegisterConcrete(&BaseOrder{}, "bonds/BaseOrder", nil)
+	cdc.RegisterConcrete(&BuyOrder{}, "bonds/BuyOrder", nil)
+	cdc.RegisterConcrete(&SellOrder{}, "bonds/SellOrder", nil)
+	cdc.RegisterConcrete(&SwapOrder{}, "bonds/SwapOrder", nil)
+	cdc.RegisterConcrete(MsgCreateBond{}, "bonds/MsgCreateBond", nil)
+	cdc.RegisterConcrete(MsgEditBond{}, "bonds/MsgEditBond", nil)
+	cdc.RegisterConcrete(MsgBuy{}, "bonds/MsgBuy", nil)
+	cdc.RegisterConcrete(MsgSell{}, "bonds/MsgSell", nil)
+	cdc.RegisterConcrete(MsgSwap{}, "bonds/MsgSwap", nil)
+ */
 export const MsgType = (props) => {
     switch (props.type) {
         //did
-        case "dap/didDoc":
-            return <Badge color="warning">Create DID</Badge>;
-        case "ixo/didDoc":
-            return <Badge color="warning">Create DID</Badge>;
-
+        case "did/MsgAddDid":
+            return <Badge color="info">Cert Activation</Badge>;
+        case "bonds/MsgCreateBond":
+            return <Badge color="success">New Bond</Badge>;
+        case "bonds/MsgEditBond":
+            return <Badge color="success">Edit Bond</Badge>;
+        case "bonds/FunctionParam":
+            return <Badge color="success">Bond Function</Badge>;
+        case "bonds/MsgBuy":
+            return <Badge color="success">Buy</Badge>;
+        case "bonds/MsgSell":
+            return <Badge color="success">Sell</Badge>;
+        case "bonds/MsgSwap":
+            return <Badge color="success">Swap</Badge>;
+        case "bonds/SwapOrder":
+            return <Badge color="success">Swap Order</Badge>;
+        case "bonds/SellOrder":
+            return <Badge color="success">Ask Order</Badge>;
+        case "bonds/Batch":
+            return <Badge color="warning">Batch</Badge>;
+        case "bonds/BuyOrder":
+            return <Badge color="success">Bid Order</Badge>;
+        case "bonds/Bond":
+            return <Badge color="success">Bond</Badge>;
         // bank
         case "cosmos-sdk/MsgSend":
             return <Badge color="success"><T>messageTypes.send</T></Badge>
         case "cosmos-sdk/MsgMultiSend":
             return <Badge color="success"><T>messageTypes.multiSend</T></Badge>
-
 
         //staking
         case "cosmos-sdk/MsgCreateValidator":
@@ -61,3 +97,153 @@ export const MsgType = (props) => {
             return <Badge color="primary">{props.type}</Badge>;
     }
 }
+
+function bondFunction (t) {
+    if (t == "swapper_function") {
+        return <span>SWAP</span>
+    }
+    if (t == "power_function") {
+        return <span>POWER</span>
+    }
+    if (t == "sigmoid_function") {
+        return <span>SIGMOID</span>
+    }
+
+    return <span>UNKNOWN FUNCTION</span>
+}
+
+const BondIssurance = (props) => {
+    const b = props.bondAttrs;
+    return <Row className="overflow-hidden">
+
+        <Col lg={3} md={4} className="label"><MsgType type="bonds/MsgCreateBond"/></Col>
+        <Col lg={9} md={8} className="value text-nowrap">
+
+        </Col>
+
+        <Col lg={3} md={4} className="label">Token Name</Col>
+        <Col lg={9} md={8} className="value text-nowrap">
+            {b.name} ({b.token})
+        </Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Bond Description</Col>
+        <Col lg={9} md={8} className="value">{b.description}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Reserves</Col>
+        <Col lg={9} md={8} className="value">{b.reserve_tokens.map ((t, i) => {
+            return new String (t).toUpperCase () + ", "
+        })}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Max. Supply</Col>
+        <Col lg={9} md={8} className="value">{b.max_supply.amount} {b.max_supply.denom}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Exchange Func.</Col>
+        <Col lg={9} md={8} className="value">{bondFunction (b.function_type)}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Mining Pool</Col>
+        <Col lg={9} md={8} className="value"><span className="address"><Account
+            address={b.fee_address}/></span></Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Bond Contract</Col>
+        <Col lg={9} md={8} className="value text-nowrap address">
+            {b.bond_did}
+        </Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Issurer</Col>
+        <Col lg={9} md={8} className="value">{b.creator_did}</Col>
+    </Row>
+}
+
+export const BondIssuranceDetail = (props) => {
+    const b = props.bondAttrs;
+    return <Row className="overflow-hidden">
+        <Col lg={3} md={4} className="label"><MsgType type="bonds/MsgCreateBond"/></Col>
+        <Col lg={9} md={8} className="value text-nowrap">
+
+        </Col>
+        <Col lg={3} md={4} className="label">Token Name</Col>
+        <Col lg={9} md={8} className="value text-nowrap">
+            {b.name} ({b.token})
+        </Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Bond Description</Col>
+        <Col lg={9} md={8} className="value">{b.description}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Reserves</Col>
+        <Col lg={9} md={8} className="value">{b.reserve_tokens.map ((t, i) => {
+            return new String (t).toUpperCase () + ", "
+        })}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Max. Supply</Col>
+        <Col lg={9} md={8} className="value">{b.max_supply.amount} {b.max_supply.denom}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Exchange Func.</Col>
+        <Col lg={9} md={8} className="value">{bondFunction (b.function_type)}</Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Mining Pool</Col>
+        <Col lg={9} md={8} className="value"><span className="address"><Account
+            address={b.fee_address}/></span></Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Bond Contract</Col>
+        <Col lg={9} md={8} className="value text-nowrap address">
+            {b.bond_did}
+        </Col>
+
+        <Col lg={3} md={4} className="label text-nowrap">Issurer</Col>
+        <Col lg={9} md={8} className="value">{b.creator_did}</Col>
+
+
+        <Col lg={3} md={4} className="label text-nowrap">Limits</Col>
+        <Col lg={9} md={8} className="value">{b.order_quantity_limits.map ((t, i) => {
+            return new Coin (coin.amount, coin.denom).toString () + ", "
+        })}</Col>
+        <Col lg={3} md={4} className="label text-nowrap">Tx Fee</Col>
+        <Col lg={9} md={8} className="value">{b.tx_fee_percentage} / {b.exit_fee_percentage}</Col>
+        <Col lg={3} md={4} className="label text-nowrap">Sanity Rate</Col>
+        <Col lg={9} md={8} className="value">{b.sanity_rate} </Col>
+        <Col lg={3} md={4} className="label text-nowrap">Sanity Margin</Col>
+        <Col lg={9} md={8} className="value">{b.sanity_margin_percentage} </Col>
+        <Col lg={3} md={4} className="label text-nowrap">Batch Block</Col>
+        <Col lg={9} md={8} className="value">{b.batch_blocks} </Col>
+        <Col lg={3} md={4} className="label text-nowrap">Status Operation</Col>
+        <Col lg={9} md={8} className="value">{b.allow_sells} </Col>
+    </Row>
+}
+
+
+export const MsgDarkpooContent = (props) => {
+    const p = props.payload.value;
+    switch (props.type) {
+        case "did/MsgAddDid":
+            return <span><span className="address">{p.didDoc.did}</span> by <span
+                className="address">{p.didDoc.pubKey}</span> <T>common.fullStop</T></span>
+        case "bonds/MsgCreateBond":
+            return <BondIssurance bondAttrs={p}/>
+        case "bonds/MsgEditBond":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/FunctionParam":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/MsgBuy":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/MsgSell":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/MsgSwap":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/SwapOrder":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/SellOrder":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/Batch":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/BuyOrder":
+            return <span className="address">{p.creator_did}</span>
+        case "bonds/Bond":
+            return <span className="address">{p.creator_did}</span>
+
+        default:
+            return <span className="address">[ N/A ]</span>
+    }
+    return <span className="address">[ N/A ]</span>
+}
+
+

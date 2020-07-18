@@ -78,7 +78,7 @@ export default class ChainStates extends Component{
 
     }
     render(){
-        return <Card className="d-lg-inline-block">
+        return <div className="d-lg-inline-block">
             <CardHeader>
                 <Row className="text-nowrap">
                     <Col xs={4} md="auto"><small><span><T>chainStates.price</T>:</span><strong>${this.state.price}</strong></small></Col>
@@ -87,6 +87,6 @@ export default class ChainStates extends Component{
                     <Col xs={8} md="auto"><small><span><T>chainStates.communityPool</T>:</span><strong>{(this.renderValues(this.state.communityPool))}</strong></small></Col>
                 </Row>
             </CardHeader>
-        </Card>
+        </div>
     }
 }

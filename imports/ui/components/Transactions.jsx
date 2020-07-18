@@ -11,9 +11,11 @@ export default class ValidatorTransactions extends Component {
         super (props);
         this.state = {
             transferTxs : {},
+            bondTxs : {},
             stakingTxs : {},
             distributionTxs : {},
             governanceTxs : {},
+            didTxs : {},
             slashingTxs : {},
         };
     }
@@ -27,6 +29,8 @@ export default class ValidatorTransactions extends Component {
                     stakingTxs : this.props.stakingTxs,
                     distributionTxs : this.props.distributionTxs,
                     governanceTxs : this.props.governanceTxs,
+                    bondTxs : this.props.bondTxs,
+                    didTxs : this.props.didTxs,
                     slashingTxs : this.props.slashingTxs
                 })
             }
@@ -36,20 +40,19 @@ export default class ValidatorTransactions extends Component {
     render () {
         if (this.props.loading) {
             return <StaticLoad color="primary"/>
-           // return <Spinner type="glow" color="primary"/>
         } else if (this.props.transactionsExist) {
             return <TransactionTabs
+                bondTxs={this.state.bondTxs}
                 transferTxs={this.state.transferTxs}
                 stakingTxs={this.state.stakingTxs}
+                didTxs={this.state.didTxs}
                 distributionTxs={this.state.distributionTxs}
                 governanceTxs={this.state.governanceTxs}
                 slashingTxs={this.state.slashingTxs}
             />
         }
         else {
-            return <Card body>
-                <T>transactions.noValidatorTxsFound</T>
-            </Card>
+            return <Card body><T>transactions.noValidatorTxsFound</T></Card>
         }
     }
 }

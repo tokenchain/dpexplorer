@@ -5,7 +5,7 @@ import { Card, CardHeader, CardBody, Container, Row, Col, Spinner } from 'reacts
 export const LoadMore = (props) => {
     if (props.show) {
         return <div id="loadmore" className="text-center disc-box">
-            <div class="cd disc small"></div>
+            <div className="cd disc small"></div>
         </div>
     }
     else {
@@ -24,6 +24,6 @@ export const StaticLoad = (props) => {
 
 export const LoadSilver = (props) => {
     return <div id="loadmore" className="text-center disc-box">
-        <div class="record gold disc small"></div>
+        <div className="record gold disc small"></div>
     </div>
 }

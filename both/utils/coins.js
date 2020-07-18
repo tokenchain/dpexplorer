@@ -121,7 +121,7 @@ export default class Coin {
         if (this.amount < minStake) {
             return `${numbro (this.amount).format ('0,0.0000')} ${this._coin.denom}`;
         } else {
-            return `${digitUppercase (this.stakingAmount, this._coin.denom)}`
+            return `${digitUppercase (this.stakingAmount, this._coin.displayName)}`
         }
     }
 }

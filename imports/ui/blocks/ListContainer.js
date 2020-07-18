@@ -5,26 +5,25 @@ import { Blockscon } from '/imports/api/blocks/blocks.js';
 
 import Blocks from './List.jsx';
 
-export default BlocksContainer = withTracker((props) => {
+export default BlocksContainer = withTracker ((props) => {
     let heightHandle;
     let loading = true;
 
-    if (Meteor.isClient){
-        heightHandle = Meteor.subscribe('blocks.height', props.limit);
-        loading = (!heightHandle.ready() && props.limit == Meteor.settings.public.initialPageSize);
+    if (Meteor.isClient) {
+        heightHandle = Meteor.subscribe ('blocks.height', props.limit);
+        loading = (!heightHandle.ready () && props.limit == Meteor.settings.public.initialPageSize);
     }
 
     let blocks;
     let blocksExist;
 
-    if (Meteor.isServer || !loading){
-        blocks = Blockscon.find({}, {sort: {height:-1}}).fetch();
-        
-        if (Meteor.isServer){
+    if (Meteor.isServer || !loading) {
+        blocks = Blockscon.find ({}, { sort : { height : -1 } }).fetch ();
+
+        if (Meteor.isServer) {
             // loading = false;
             blocksExist = !!blocks;
-        }
-        else{
+        } else {
             blocksExist = !loading && !!blocks;
         }
     }
@@ -32,6 +31,6 @@ export default BlocksContainer = withTracker((props) => {
     return {
         loading,
         blocksExist,
-        blocks: blocksExist ? blocks : {}
+        blocks : blocksExist ? blocks : {}
     };
-})(Blocks);
+}) (Blocks);

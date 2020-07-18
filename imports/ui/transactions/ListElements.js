@@ -8,14 +8,13 @@ import numbro from 'numbro';
 import Coin from '/both/utils/coins.js'
 import SentryBoundary from '../components/SentryBoundary.jsx';
 import { Markdown } from 'react-showdown';
-import { Activites, Payload } from "../components/Activities";
+import { Activities, DxpActivities } from "../components/Activities";
 import i18n from 'meteor/universe:i18n';
 import PropTypes from 'prop-types';
 
 let showdown = require ('showdown');
 showdown.setFlavor ('github');
 const T = i18n.createComponent ();
-
 
 
 function hasFee (content) {
@@ -30,15 +29,15 @@ function fee_cast (content) {
 function list_msg_rnd (messages, isValidTrans, events) {
     if (messages.length == 0) return "";
     return messages.map ((msg, i) => {
-        return <Card body key={i}><Activites msg={msg} invalid={!isValidTrans}/></Card>
+        return <Card body key={i}><Activities msg={msg} invalid={!isValidTrans}/></Card>
     })
 }
 
 
-function ListPayloads (items) {
+function list_payload_rnd (items, valid_trans, events) {
     if (items.length == 0) return "";
-    items.map ((p, i) => {
-        return <Card body key={i}><Payload msg={p} invalid={!valid_trans}/></Card>
+    return items.map ((p, i) => {
+        return <Card body key={i} className="overflow-hidden"><DxpActivities msg={p} invalid={!valid_trans}/></Card>
     })
 }
 
@@ -86,23 +85,6 @@ export const FeeCast = (props) => {
     return fee_cast (props.content);
 }
 
-export const RenderRow = (props) => {
-    const content = props.content;
-    const booleans = props.bools;
-    return <Row className={booleans.valid_trans ? "tx-info" : "tx-info invalid"}>
-        <Col xs={12} lg={7}
-             className="activity">{booleans.has_msg ? list_msg_rnd (content.tx.value.msg, booleans.valid_trans, content.events) : booleans.has_docdid ? ListPayloads (content.tx.payload) : ''}</Col>
-        {txHashRender (props.blockList, content)}
-        {timestamprender (props.blockList, content)}
-        {blockheightelement (props.blockList, content)}
-        <Col xs={(!props.blockList) ? 2 : 4} md={1}>{iconrender (booleans.valid_trans)}</Col>
-        <Col xs={(!props.blockList) ? 6 : 8} md={(!props.blockList) ? 9 : 4} lg={2} className="fee">
-            <i className="material-icons d-lg-none">monetization_on</i>
-            {fee_cast (content)}
-        </Col>
-    </Row>
-}
-
 
 export const ErrHashRen = (props) => {
     const txhash = props.txhash;
@@ -113,6 +95,38 @@ export const ErrHashRen = (props) => {
         to={"/transactions/" + txhash}>{txhash}</Link>
     </Col>
 }
+export const RenderRow = (props) => {
+    const content = props.content;
+    const {
+        has_msg,
+        has_msg_did,
+        valid_trans
+    } = props.bools;
+
+    // console.log ("tx content :", JSON.stringify (content));
+
+    var elements = ""
+
+    if (has_msg) {
+        elements = list_msg_rnd (content.tx.value.msg, valid_trans, content.events)
+    }
+    if (has_msg_did) {
+        elements = list_payload_rnd (content.tx.value.payload, valid_trans, content.events)
+    }
+    return <Row className={valid_trans ? "tx-info" : "tx-info invalid"}>
+        <Col xs={12} lg={7} className="activity">{elements}</Col>
+        {txHashRender (props.blockList, content)}
+        {timestamprender (props.blockList, content)}
+        {blockheightelement (props.blockList, content)}
+        <Col xs={(!props.blockList) ? 2 : 4} md={1}>{iconrender (valid_trans)}</Col>
+        <Col xs={(!props.blockList) ? 6 : 2} md={(!props.blockList) ? 9 : 2} lg={2} className="fee">
+            <i className="material-icons d-lg-none">monetization_on</i>
+            {fee_cast (content)}
+        </Col>
+
+    </Row>
+}
+
 
 export const TxHashRen = (props) => {
     const block_list = props.blockList;

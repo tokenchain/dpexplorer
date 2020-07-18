@@ -1,11 +1,14 @@
 import { Mongo } from 'meteor/mongo';
 import { Validators } from '../validators/validators.js';
 
-export const Blockscon = new Mongo.Collection('blocks');
+export const Blockscon = new Mongo.Collection ('blocks');
 
-Blockscon.helpers({
-    proposer(){
-        return Validators.findOne({address:this.proposerAddress});
+Blockscon.helpers ({
+    proposer () {
+        return Validators.findOne ({ address : this.proposerAddress });
+    },
+    sorted (limit) {
+        return Blockscon.find ({}, { sort : { height : -1 }, limit : limit });
     }
 });
 

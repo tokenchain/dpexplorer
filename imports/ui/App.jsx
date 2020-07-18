@@ -98,6 +98,8 @@ class App extends Component {
                     <Footer />
                 </div>
             // </Router>
+            // usse tabs
+            // <Route path="/proposals" component={Proposals} /
         );
     }
 }

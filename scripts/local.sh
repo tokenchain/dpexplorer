@@ -53,7 +53,7 @@ SEGMENT=$(env_segment)
 JSON_TARGET="https://gitee.com/jjhoc/b-explorer-settings/raw/master/v1.3/$SEGMENT/genesis.json"
 JSON_GIT_PATH="$HOME/Documents/ixo/b-explorer-settings/v1.3/$SEGMENT/genesis.json"
 EXPLORER_SETTINGS=$(env_setting_file)
-
+NATIVE_TOKEN="mdap"
 
 echo "==========================="
 echo "version genesis update"
@@ -65,10 +65,11 @@ sh pushcommit.sh
 cd $HOME/Documents/ixo/dpexplorer
 
 echo "====================================="
-echo "if do not have sponge please install. MacOS please run [brew install moreutil]. "
+echo "if do not have sponge please install. MacOS please run [brew install moreutil]. Now editing the setting json file."
 echo "====================================="
-
 cat $EXPLORER_SETTINGS|jq '.genesisFile = "'$JSON_TARGET'"' -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
+cat $EXPLORER_SETTINGS|jq '.public.coins[0].denom = "'$NATIVE_TOKEN'"' -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
+cat $EXPLORER_SETTINGS|jq '.public.bondDenom = "'$NATIVE_TOKEN'"' -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
 cat $EXPLORER_SETTINGS|jq '.remote.rpc = "'$RPC'"' -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
 cat $EXPLORER_SETTINGS|jq '.remote.lcd = "'$LCD'"' -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
 

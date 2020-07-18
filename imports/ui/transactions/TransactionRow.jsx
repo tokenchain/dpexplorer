@@ -11,14 +11,14 @@ export const TransactionRow = (props) => {
 
     const valid_trans = content.hasOwnProperty ("logs") && content.logs.length > 0;
     const has_msg = content.tx.value.hasOwnProperty ("msg") && content.tx.value.msg.length > 0;
-    const has_docdid = content.tx.hasOwnProperty ("payload") && content.tx.payload.length > 0;
+    const has_msg_did = content.tx.value.hasOwnProperty ("payload") && content.tx.value.payload.length > 0;
     var booleans = {
         has_msg,
-        has_docdid,
+        has_msg_did,
         valid_trans
     }
-    // console.log ("print content now", JSON.stringify (content));
-    //var items = "--";
+
+
     if (valid_trans) {
         return <RenderRow content={content} bools={booleans}/>;
     } else {

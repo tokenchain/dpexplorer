@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { MsgType } from './MsgType.jsx';
+import { MsgType, MsgDarkpooContent } from './MsgType.jsx';
+import { Container, Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Account from '../components/Account.jsx';
 import i18n from 'meteor/universe:i18n';
@@ -43,7 +44,7 @@ const send_fund = (amount, type, from, to, invalid) => {
         address={to}/></span><T>common.fullStop</T></p>
 }
 
-export class Activites extends Component {
+export class Activities extends Component {
     constructor (props) {
         super (props);
     }
@@ -55,7 +56,7 @@ export class Activites extends Component {
         const invalid = this.props.invalid;
         // console.log ("invalid", this.props.invalid);
         if (invalid) {
-            return <p>🛑 INVALID TRANSACTION:  {JSON.stringify (singleMsg)}</p>
+            return <p>🛑 INVALID TRANSACTION: {JSON.stringify (singleMsg)}</p>
         } else {
             /* for (let i in this.props.events) {
                  events[this.props.events[i].type] = this.props.events[i].attributes
@@ -68,26 +69,48 @@ export class Activites extends Component {
 
             } else {
                 return <p>{JSON.stringify (singleMsg)}</p>
-
-
             }
 
         }
     }
 }
 
+const darkpool_rnd = (invalid, payload_msg) => {
+    if (payload_msg.type == "bonds/MsgCreateBond") {
+        return <MsgDarkpooContent type={payload_msg.type} payload={payload_msg}/>
+    } else {
+        return <p>{invalid ? <T>activities.failedTo</T> : ''} <MsgType
+            type={payload_msg.type}/> <MsgDarkpooContent type={payload_msg.type} payload={payload_msg}/></p>
+    }
+}
 
-export class Payload extends Component {
+
+const bonds = () => {
+    return <p>bond works here</p>
+}
+
+
+export class DxpActivities extends Component {
     constructor (props) {
         super (props);
     }
 
     render () {
-        // console.log(this.props);
-        const msg = this.props.msg;
-        const sign = JSON.parse (msg.signBytes);
-        return <p>{(this.props.invalid) ? <T>activities.failedTo</T> : ''}<MsgType type="ixo/didDoc"/> {msg.didDoc.did}
-            <span className="address">{msg.didDoc.pubKey}</span><T>common.fullStop</T></p>
 
+        const msm = this.props.msg;
+        const invalid = this.props.invalid;
+        const type = msm.type;
+
+
+        //  console.log ("-- DxpActivities 1")
+        // console.log(this.props);
+
+
+        if (invalid) {
+            return <p>{JSON.stringify (invalid)}</p>
+        }
+
+
+        return darkpool_rnd (invalid, msm);
     }
 }

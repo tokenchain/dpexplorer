@@ -30,11 +30,11 @@
     width: 50vmin;
     height: 50vmin;
   }
-
+  /**
   &:hover {
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
-  }
+  }*/
 
   &:nth-child(1) {
     -webkit-animation-delay: -1.2s;

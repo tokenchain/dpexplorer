@@ -182,10 +182,8 @@ export default class Validator extends Component {
 
     render () {
         if (this.props.loading) {
-            // return <Spinner type="grow" color="primary"/>
             return <StaticLoad color="primary"/>
-        }
-        else {
+        } else {
             if (this.props.validatorExist) {
 
                 let moniker = (this.props.validator.description && this.props.validator.description.moniker) ? this.props.validator.description.moniker : this.props.validator.address;
@@ -199,8 +197,7 @@ export default class Validator extends Component {
                         <meta name="description" content={details}/>
                     </Helmet>
                     <Col xs={12}>
-                        <Link to="/validators" className="btn btn-link"><i
-                            className="fas fa-caret-left"></i><T>common.backToList</T></Link>
+                        <Link to="/validators" className="btn btn-link"><i className="fas fa-caret-left"></i><T>common.backToList</T></Link>
                     </Col>
                     <Col md={4}>
                         <Card body className="text-center">
@@ -239,8 +236,7 @@ export default class Validator extends Component {
                             <div className="card-header"><T>validators.validatorInfo</T></div>
                             <CardBody>
                                 <Row>
-                                    <Col xs={12}><StatusBadge bondingStatus={this.props.validator.status}
-                                                              jailed={this.props.validator.jailed}/></Col>
+                                    <Col xs={12}><StatusBadge bondingStatus={this.props.validator.status} jailed={this.props.validator.jailed}/></Col>
                                     <Col sm={4} className="label"><T>validators.operatorAddress</T></Col>
                                     <Col sm={8} className="value address"
                                          data-operator-address={this.props.validator.operator_address}>{this.props.validator.operator_address}</Col>
@@ -336,13 +332,11 @@ export default class Validator extends Component {
                                        validator={this.props.validator.operator_address}
                                        delegator={this.props.validator.delegator_address} limit={100}/>}/>
                         </Switch>
-
                         <Link to="/validators" className="btn btn-link"><i className="fas fa-caret-left"></i>
                             <T>common.backToList</T></Link>
                     </Col>
                 </Row>
-            }
-            else {
+            } else {
                 return <div><T>validators.validatorNotExists</T></div>
             }
         }
