@@ -46,6 +46,7 @@ export default BlockContainer = withTracker ((props) => {
         }).fetch () : {},
         transferTxs : transactionsExist ? Transactions.find ({
             $or : [
+                { "tx.value.payload.type" : "treasury/MsgSend" },
                 { "tx.value.msg.type" : "cosmos-sdk/MsgSend" },
                 { "tx.value.msg.type" : "cosmos-sdk/MsgMultiSend" }
             ]

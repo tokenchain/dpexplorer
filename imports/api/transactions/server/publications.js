@@ -2,8 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Transactions } from '../transactions.js';
 import { Blockscon } from '../../blocks/blocks.js';
 
-
-
 publishComposite('transactions.list', function(limit = 30){
     return {
         find(){
