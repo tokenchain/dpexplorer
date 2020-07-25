@@ -23,14 +23,21 @@ export class DXPAccount extends Component {
 
     getAddress = () => {
         let __address = this.props.address;
-        Meteor.call ('accounts.getDidToAddress', __address, (error, result) => {
-            if (result) {
-                // console.log ("found account... ", result);
-                this.setState ({
-                    url_dx0_address : `/account/${result.data}`,
-                });
-            }
-        })
+        let test = new String (__address);
+        if (test.substring (0, 3) === 'dx0') {
+            this.setState ({
+                url_dx0_address : `/account/${__address}`,
+            });
+        } else if (test.substring (0, 7) === 'did:dxp') {
+            Meteor.call ('accounts.getDidToAddress', __address, (error, result) => {
+                if (result) {
+                    // console.log ("found account... ", result);
+                    this.setState ({
+                        url_dx0_address : `/account/${result.data}`,
+                    });
+                }
+            })
+        }
     }
 
     componentDidMount () {
