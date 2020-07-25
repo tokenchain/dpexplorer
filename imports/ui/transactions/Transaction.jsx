@@ -105,8 +105,7 @@ const detail = (tx, copyfunction) => {
 
 
 const feeWrapper = (tx) => {
-    return <Col md={10}
-                className="value">{(tx.tx.value.fee.amount.length > 0) ? tx.tx.value.fee.amount.map ((fee, i) => {
+    return <Col md={10} className="value">{(tx.tx.value.fee.amount.length > 0) ? tx.tx.value.fee.amount.map ((fee, i) => {
         return <span className="text-nowrap"
                      key={i}> {((fee.amount / Meteor.settings.public.stakingFraction) >= 1) ? (new Coin (parseFloat (fee.amount), fee.denom)).stakeString () : (new Coin (parseFloat (fee.amount), fee.denom)).mintString ()} </span>
     }) : <span><T>transactions.noFee</T></span>}</Col>

@@ -4,7 +4,7 @@ import i18n from 'meteor/universe:i18n';
 import numbro from "numbro";
 import moment from "moment/moment";
 import { Container, Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
-import Account from '../components/Account.jsx';
+import Account, {DXPAccount} from '../components/Account.jsx';
 import Coin from "../../../both/utils/coins";
 
 const T = i18n.createComponent ();
@@ -92,7 +92,8 @@ export const MsgType = (props) => {
             return <Badge color="dark"><T>messageTypes.IBCTransfer</T></Badge>;
         case "cosmos-sdk/IBCReceiveMsg":
             return <Badge color="dark"><T>messageTypes.IBCReceive</T></Badge>;
-
+        case "treasury/MsgSend":
+            return <Badge color="success">Send DXP Fund</Badge>;
         default:
             return <Badge color="primary">{props.type}</Badge>;
     }
@@ -213,7 +214,8 @@ export const BondIssuranceDetail = (props) => {
 
 export const MsgDarkpooContent = (props) => {
     const p = props.payload.value;
-    switch (props.type) {
+    const type = props.type;
+    switch (type) {
         case "did/MsgAddDid":
             return <span><span className="address">{p.didDoc.did}</span> by <span
                 className="address">{p.didDoc.pubKey}</span> <T>common.fullStop</T></span>
@@ -239,6 +241,20 @@ export const MsgDarkpooContent = (props) => {
             return <span className="address">{p.creator_did}</span>
         case "bonds/Bond":
             return <span className="address">{p.creator_did}</span>
+        case "treasury/MsgSend":
+            /*
+             {"type":"treasury/MsgSend","value":{"from_did":"did:dxp:G2CRh3ezo8PyyHQkQB1Pur","to_did":"did:dxp:6sfePrsqYBKUSxQkWRgDXW","amount":[{"denom":"mdap","amount":"20000"}]}}
+              <span>{JSON.stringify(props.payload)}</span>
+             */
+            let amount = '';
+            const valid_amount = p.hasOwnProperty ("amount") && p.amount.length > 0;
+            if (valid_amount) {
+                amount = p.amount.map ((coin) => new Coin (coin.amount, coin.denom).toString ()).join (', ');
+            }
+            const from = p.from_did;
+            const to = p.to_did;
+            return <p><span
+                className="text-success">{amount}</span> <T>activities.from</T> <DXPAccount address={from}/> <T>activities.to</T> <span className="address"><DXPAccount address={to} /></span><T>common.fullStop</T> </p>
 
         default:
             return <span className="address">[ N/A ]</span>
@@ -247,3 +263,9 @@ export const MsgDarkpooContent = (props) => {
 }
 
 
+const send_fund = (amount, type, from, to, invalid) => {
+    return <p><MsgType type={type}/> <span
+        className="text-success">{amount}</span> <T>activities.from</T> <Account address={from}/> {invalid ?
+        <T>activities.failedTo</T> : ''} <T>activities.to</T> <span className="address"><Account
+        address={to}/></span><T>common.fullStop</T></p>
+}

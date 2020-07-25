@@ -5,49 +5,90 @@ import { Validators } from '/imports/api/validators/validators.js';
 
 const AddressLength = 40;
 
-export default class Account extends Component{
-    constructor(props){
-        super(props);
-
+export class DXPAccount extends Component {
+    constructor (props) {
+        super (props);
         this.state = {
-            address: `/account/${this.props.address}`,
-            moniker: this.props.address,
-            validator: null
+            url_did_address : `/didToAddr/${this.props.address}`,
+            url_dx0_address : "",
         }
     }
 
-    getFields() {
-        return {address:1, description:1, operator_address:1, delegator_address:1, profile_url:1};
+    userIcon () {
+        let signedInAddress = localStorage.getItem (CURRENTUSERADDR);
+        if (signedInAddress === this.props.address) {
+            return <i className="material-icons account-icon">account_box</i>
+        }
+    }
+
+    getAddress = () => {
+        let __address = this.props.address;
+        Meteor.call ('accounts.getDidToAddress', __address, (error, result) => {
+            if (result) {
+                // console.log ("found account... ", result);
+                this.setState ({
+                    url_dx0_address : `/account/${result.data}`,
+                });
+            }
+        })
+    }
+
+    componentDidMount () {
+        this.getAddress ();
+    }
+
+    render () {
+        return <span
+            className={(this.props.copy) ? "address overflow-auto d-inline-block copy" : "address overflow-auto d-inline"}>
+            <Link to={this.state.url_dx0_address}>{this.userIcon ()}{this.props.address}</Link>
+        </span>
+    }
+
+}
+
+export default class Account extends Component {
+    constructor (props) {
+        super (props);
+
+        this.state = {
+            address : `/account/${this.props.address}`,
+            moniker : this.props.address,
+            validator : null
+        }
+    }
+
+    getFields () {
+        return { address : 1, description : 1, operator_address : 1, delegator_address : 1, profile_url : 1 };
     }
 
     getAccount = () => {
         let address = this.props.address;
-        let validator = Validators.findOne(
-            {$or: [{operator_address:address}, {delegator_address:address}, {address:address}]},
-            {fields: this.getFields() });
+        let validator = Validators.findOne (
+            { $or : [{ operator_address : address }, { delegator_address : address }, { address : address }] },
+            { fields : this.getFields () });
         if (validator)
-            this.setState({
-                address: `/validator/${validator.address}`,
-                moniker: validator.description?validator.description.moniker:validator.operator_address,
-                validator: validator
+            this.setState ({
+                address : `/validator/${validator.address}`,
+                moniker : validator.description ? validator.description.moniker : validator.operator_address,
+                validator : validator
             });
         else
-            this.setState({
-                address: `/validator/${address}`,
-                moniker: address,
-                validator: null
+            this.setState ({
+                address : `/validator/${address}`,
+                moniker : address,
+                validator : null
             });
     }
 
     updateAccount = () => {
         let address = this.props.address;
-        Meteor.call('Transactions.findUser', this.props.address, this.getFields(), (error, result) => {
-            if (result){
-                // console.log(result);
-                this.setState({
-                    address: `/validator/${result.address}`,
-                    moniker: result.description?result.description.moniker:result.operator_address,
-                    validator: result
+        Meteor.call ('Transactions.findUser', this.props.address, this.getFields (), (error, result) => {
+            if (result) {
+                console.log (result);
+                this.setState ({
+                    address : `/validator/${result.address}`,
+                    moniker : result.description ? result.description.moniker : result.operator_address,
+                    validator : result
                 });
             }
         })
@@ -55,54 +96,55 @@ export default class Account extends Component{
 
     getAccount = () => {
         let address = this.props.address;
-        let validator = Validators.findOne(
-            {$or: [{operator_address:address}, {delegator_address:address}, {address:address}]},
-            {fields: {address:1, description:1, operator_address:1, delegator_address:1}});
+
+        let validator = Validators.findOne (
+            { $or : [{ operator_address : address }, { delegator_address : address }, { address : address }] },
+            { fields : { address : 1, description : 1, operator_address : 1, delegator_address : 1 } });
         if (validator)
-            this.setState({
-                address: `/validator/${validator.address}`,
-                moniker: validator.description.moniker
+            this.setState ({
+                address : `/validator/${validator.address}`,
+                moniker : validator.description.moniker
             });
         else
-            this.setState({
-                address: `/validator/${address}`,
-                moniker: address
+            this.setState ({
+                address : `/validator/${address}`,
+                moniker : address
             });
     }
 
-    componentDidMount(){
+    componentDidMount () {
         if (this.props.sync)
-            this.getAccount();
+            this.getAccount ();
         else
-            this.updateAccount();
+            this.updateAccount ();
     }
 
-    componentDidUpdate(prevProps){
-        if (this.props.address != prevProps.address){
+    componentDidUpdate (prevProps) {
+        if (this.props.address != prevProps.address) {
             if (this.props.sync) {
-                this.getAccount();
-            }
-            else {
-                this.setState({
-                    address: `/account/${this.props.address}`,
-                    moniker: this.props.address,
-                    validator: null
+                this.getAccount ();
+            } else {
+                this.setState ({
+                    address : `/account/${this.props.address}`,
+                    moniker : this.props.address,
+                    validator : null
                 });
-                this.updateAccount();
+                this.updateAccount ();
             }
         }
     }
 
-    userIcon(){
-        let signedInAddress = localStorage.getItem(CURRENTUSERADDR);
+    userIcon () {
+        let signedInAddress = localStorage.getItem (CURRENTUSERADDR);
         if (signedInAddress === this.props.address) {
             return <i className="material-icons account-icon">account_box</i>
         }
     }
 
-    render(){
-        return <span className={(this.props.copy)?"address overflow-auto d-inline-block copy":"address overflow-auto d-inline"} >
-            <Link to={this.state.address}>{this.userIcon()}{this.state.moniker}</Link>
+    render () {
+        return <span
+            className={(this.props.copy) ? "address overflow-auto d-inline-block copy" : "address overflow-auto d-inline"}>
+            <Link to={this.state.address}>{this.userIcon ()}{this.state.moniker}</Link>
         </span>
     }
 }

@@ -5,19 +5,18 @@ import '/node_modules/plottable/plottable.css';
 import './styles.scss';
 import App from '/imports/ui/App.jsx';
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'
-// import ReactDOM from 'react-dom';
-
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom'
+// import ReactDOM from 'react-dom';
 
 CURRENTUSERADDR = 'ledgerUserAddress';
 CURRENTUSERPUBKEY = 'ledgerUserPubKey';
 
 // import { onPageLoad } from 'meteor/server-render';
 
-Meteor.startup(() => {
-    render(<Router><App /></Router>, document.getElementById('app'));
+Meteor.startup (() => {
+    render (<Router><App/></Router>, document.getElementById ('app'));
     // render(<Header />, document.getElementById('header'));
 
     // onPageLoad(async sink => {
