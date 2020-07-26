@@ -64,7 +64,7 @@ touch $FILE
 
 
 echo "=========================="
-echo "| Builing for production |"
+echo "| Building for production |"
 echo "=========================="
 cd $WORK_SPACE
 #meteor build ./build/ --architecture os.linux.x86_64 --server-only --allow-superuser
@@ -81,6 +81,11 @@ then
 
     if [ $USER  == "hesk" ]
     then
+
+    	echo "==================================================="
+		echo "It will be uploading to the specific node network"
+		echo "==================================================="
+
         scp $BUILD_DIR/$NEW_NAME root@$LOCAL:$TARGET_LOC
         ssh -t root@$LOCAL $EXTRACT
         echo "local"

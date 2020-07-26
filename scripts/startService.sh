@@ -1,4 +1,6 @@
 #!/bin/bash
+INSTALL_EXPLORER_FOLDER="wwwdp"
+
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         
@@ -19,7 +21,7 @@ echo "====preview settings===="
 #export BIND_IP=8.210.117.181
 echo $METEOR_SETTINGS
 
-INSTALL_EXPLORER_FOLDER="wwwdp"
+
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     cd /www/$INSTALL_EXPLORER_FOLDER/bundle/programs/server
