@@ -6,3 +6,4 @@ settings.*.json
 output/
 .idea/
 private/
+build/

@@ -55,9 +55,9 @@ JSON_GIT_PATH="$HOME/Documents/ixo/b-explorer-settings/v1.3/$SEGMENT/genesis.jso
 EXPLORER_SETTINGS=$(env_setting_file)
 NATIVE_TOKEN="mdap"
 
-echo "==========================="
-echo "version genesis update"
-echo "==========================="
+echo "========================================================="
+echo "version genesis update - $JSON_TARGET, $JSON_GIT_PATH"
+echo "========================================================="
 cp $JSONFile $JSON_GIT_PATH
 cd $HOME/Documents/ixo/b-explorer-settings
 sh pushcommit.sh
