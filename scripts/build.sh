@@ -130,7 +130,7 @@ echo "| Building for production |"
 echo "=========================="
 cd $WORK_SPACE
 #meteor build ./build/ --architecture os.linux.x86_64 --server-only --allow-superuser
-#meteor build --architecture=os.linux.x86_64 $BUILD_DIR
+meteor build --architecture=os.linux.x86_64 $BUILD_DIR
 #EXTRACT="cd /www/wwwdp;bash tar -xvf dpexplorer.tar.gz -C /www/wwwdp"
 #cd bundle/programs/server && npm install
 
