@@ -1,1 +1,73 @@
-{"remote":{"rpc":"http://127.0.0.1:26657","lcd":"http://127.0.0.1:1317"},"genesisFile":"https://gitee.com/jjhoc/b-explorer-settings/raw/master/v2/genesis.json","debug":{"readGenesis":true,"startTimer":true},"params":{"delegationInterval":900000,"defaultBlockTime":5000,"consensusInterval":1000,"startHeight":0,"proposalInterval":5000,"statusInterval":7500,"missedBlocksInterval":60000,"blockInterval":15000,"signingInfoInterval":1800000},"public":{"secp256k1":false,"bech32PrefixValAddr":"dx0valoper","bech32PrefixAccAddr":"dx0","bech32PrefixValPub":"dx0valoperpub","gtm":"{Add your Google Tag Manager ID here}","uptimeWindow":250,"bech32PrefixConsPub":"dx0valconspub","slashingWindow":10000,"chainId":"darkpool-1x","coins":[{"displayName":"DAP","denom":"dap","displayNamePlural":"DAPS","fraction":1},{"displayName":"DOLLAR","denom":"dollar","displayNamePlural":"DOLLARS","fraction":1},{"displayName":"DITA","denom":"dita","displayNamePlural":"DITAS","fraction":1},{"displayName":"STAKE","denom":"stake","displayNamePlural":"STAKES","fraction":1}],"chainName":"Darkpool Local","bondDenom":"udap","gasPrice":0.025000000000000001,"coingeckoId":"cosmos","bech32PrefixConsAddr":"dx0svalcons","powerReduction":1000000,"bech32PrefixAccPub":"dx0pub","initialPageSize":30}}
+{
+  "debug": {
+    "readGenesis": true,
+    "startTimer": true
+  },
+  "params": {
+    "signingInfoInterval": 1800000,
+    "defaultBlockTime": 5000,
+    "consensusInterval": 1000,
+    "proposalInterval": 5000,
+    "startHeight": 0,
+    "statusInterval": 7500,
+    "missedBlocksInterval": 60000,
+    "blockInterval": 15000,
+    "delegationInterval": 900000
+  },
+  "public": {
+    "secp256k1": false,
+    "bech32PrefixValAddr": "dx0valoper",
+    "bech32PrefixAccAddr": "dx0",
+    "bech32PrefixValPub": "dx0valoperpub",
+    "bech32PrefixConsPub": "dx0valconspub",
+    "gtm": "{Add your Google Tag Manager ID here}",
+    "coins": [
+      {
+        "displayName": "DAP",
+        "denom": "mdap",
+        "displayNamePlural": "DAPS",
+        "fraction": 1000
+      },
+      {
+        "displayName": "DOLLAR",
+        "denom": "cdollar",
+        "displayNamePlural": "DOLLARS",
+        "fraction": 100
+      },
+      {
+        "displayName": "DITA",
+        "denom": "mdita",
+        "displayNamePlural": "DITAS",
+        "fraction": 1000
+      },
+      {
+        "displayName": "Karba",
+        "denom": "mkbs",
+        "displayNamePlural": "KBSS",
+        "fraction": 1000
+      },
+      {
+        "displayName": "STAKE",
+        "denom": "stake",
+        "displayNamePlural": "STAKES",
+        "fraction": 1
+      }
+    ],
+    "coingeckoId": "cosmos",
+    "chainId": "darkpool-1x",
+    "gasPrice": 0.025,
+    "chainName": "Darkpool Local",
+    "bondDenom": "mdap",
+    "slashingWindow": 10000,
+    "uptimeWindow": 250,
+    "bech32PrefixConsAddr": "dx0svalcons",
+    "powerReduction": 1000000,
+    "bech32PrefixAccPub": "dx0pub",
+    "initialPageSize": 30
+  },
+  "remote": {
+    "rpc": "http://127.0.0.1:26657",
+    "lcd": "http://127.0.0.1:1317"
+  },
+  "genesisFile": "https://gitee.com/jjhoc/b-explorer-settings/raw/master/v1.3/mainnet/genesis.json"
+}
