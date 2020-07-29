@@ -14,7 +14,7 @@ fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
-    export MONGO_URL='mongodb://localhost:27017/darkpool'
+    export MONGO_URL="mongodb://localhost:27017/$DB_NAME"
     export ROOT_URL='http://explorer.profitlock.io'
     export METEOR_SETTINGS=$(jq -c . $EXPLORER_SETTINGS)
     export PORT=8080
@@ -82,7 +82,7 @@ N=$(which node)
 #change user starting command to this ...
 #usermod -s bash $DEDICATED_UERNAME
 
-cat $USER_BASH_PROFILE 
+cat $USER_BASH_PROFILE
 
 if [ ! -d $USER_PROGRAMS ]; then
     echo -e "initialize folder and settings for the user - $DEDICATED_UERNAME"

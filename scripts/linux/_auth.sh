@@ -4,7 +4,7 @@ INSTALL_EXPLORER_FOLDER="dpexplorer"
 EXPLORER_SETTINGS="settings_local.json"
 LOG_FILE="blockexplorer.out"
 LOCAL=8.210.227.164
-
+DB_NAME="darkpool"
 
 # DO NOT EDIT BELOW THIS LINE
 
@@ -14,7 +14,7 @@ removeUser(){
 
 help(){
      local usage="
-     
+
     🈴 Auto stop service\n
     🈴 Please try select any of these cmd\n
 \n
