@@ -7,29 +7,8 @@
 #production:
 #sh build.sh dx1 u
 
+. ./_needle.sh
 
-
-help() {
-    local usage=" Explorer builder autoscript -h\n
-	 Please try select any of these cmd - testnet,dx1\n
-
-	 example\n
-
-	 	testnet: sh build.sh testnet\n
-	 production: sh build.sh dx1\n
-
-	 skip upload: sh build.sh testnet -test\n
-	 skip upload: sh build.sh dx1  -test\n
-	 	try to help it out
-	 "
-    echo $usage
-}
-
-abort_program() {
-    cd $BUILD_DIR
-    rm -f $FILE
-    exit
-}
 
 if [[ $1 == "testnet" ]]; then
 
@@ -57,12 +36,6 @@ else
 fi
 
 
-mod_setting() {
-    param_hk="$1 = \"$2\""
-    #echo "$param_hk"
-    cat $EXPLORER_SETTINGS | jq "$param_hk" -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
-}
-
 
 echo "Define setting file"
 echo "================================================="
@@ -87,10 +60,12 @@ CHAIN_NAME="Darkpool mainnet"
 
 
 cd $WORK_SPACE
-sh update.sh
+#sh update.sh
 VERSION=$(cat version)
 BUILD_DIR="$WORK_SPACE/build"
 NEW_NAME="bundle-v$VERSION-explorer.tar.gz"
+
+#works on the setting file
 cp "settings_local.json" $EXPLORER_SETTINGS
 
 mod_setting ".genesisFile" $GENESIS_FILE_URL
@@ -123,24 +98,26 @@ fi
 
 
 #exit
-cd $BUILD_DIR
-touch $FILE
-echo "=========================="
-echo "| Building for production |"
-echo "=========================="
-cd $WORK_SPACE
-#meteor build ./build/ --architecture os.linux.x86_64 --server-only --allow-superuser
-meteor build --architecture=os.linux.x86_64 $BUILD_DIR
-#EXTRACT="cd /www/wwwdp;bash tar -xvf dpexplorer.tar.gz -C /www/wwwdp"
-#cd bundle/programs/server && npm install
+#cd $BUILD_DIR
 
-cd $BUILD_DIR
+if [[ ! -f $BUILD_DIR/$NEW_NAME ]]; then
 
-if [[ ! -f $NEW_NAME ]]; then
+    touch $BUILD_DIR/$FILE
+    echo "=========================="
+    echo "| Building for production |"
+    echo "=========================="
+    cd $WORK_SPACE
+    #meteor build ./build/ --architecture os.linux.x86_64 --server-only --allow-superuser
+    meteor build --architecture=os.linux.x86_64 $BUILD_DIR
+    #EXTRACT="cd /www/wwwdp;bash tar -xvf dpexplorer.tar.gz -C /www/wwwdp"
+    #cd bundle/programs/server && npm install
+
+    cd $BUILD_DIR
     mv $FILE $NEW_NAME
 fi
 
 EXTRACT="cd $TARGET_LOC; tar -xvf $NEW_NAME;bash"
+
 
 
 if [ $USER == "hesk" ]
@@ -149,22 +126,9 @@ then
     echo "==================================================="
     echo "It will be uploading to the specific node network"
     echo "==================================================="
+    upload_file $WORK_SPACE/$EXPLORER_SETTINGS $TARGET_LOC
 
-    file_size_kb=`du -k "$BUILD_DIR/$NEW_NAME" | cut -f1`
-
-    if [ $file_size_kb -eq 0 ]; then
-        echo "⛔️ file is zero bytes..."
-        abort_program
-    fi
-
-    scp $BUILD_DIR/$NEW_NAME root@$LOCAL:$TARGET_LOC
-
-    if [ $? -eq 0 ]; then
-        echo "✅ ==== upload successfully"
-    else
-        echo "⛔️ Error from uploading..."
-        abort_program
-    fi
+    upload_file $BUILD_DIR/$NEW_NAME $TARGET_LOC
 
     ssh -t root@$LOCAL $EXTRACT
 
