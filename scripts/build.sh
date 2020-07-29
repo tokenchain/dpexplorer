@@ -58,9 +58,8 @@ GENESIS_FILE="$HOME/Documents/ixo/b-explorer-settings/v1.3/mainnet/genesis.json"
 CHAIN_ID=$(jq '.chain_id' $GENESIS_FILE -r)
 CHAIN_NAME="Darkpool mainnet"
 
-
 cd $WORK_SPACE
-#sh update.sh
+sh update.sh
 VERSION=$(cat version)
 BUILD_DIR="$WORK_SPACE/build"
 NEW_NAME="bundle-v$VERSION-explorer.tar.gz"

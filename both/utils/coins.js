@@ -23,37 +23,67 @@ for (let i in coinList) {
     }
 }
 
-const digitUppercase = function (n, nom) {
-    var fraction = ['角', '分'];
-    var digit = [
+const digitalMoney = function (n, nom) {
+    const fraction = ['角', '分'];
+    const digit = [
         '零', '壹', '贰', '叁', '肆',
         '伍', '陆', '柒', '捌', '玖'
     ];
-    var unit = [
+    const unit = [
         ['元', '万', '亿'],
         ['', '拾', '佰', '仟']
     ];
-    var head = n < 0 ? '欠' : '';
+    const head = n < 0 ? '欠' : '';
     n = Math.abs (n);
-    var s = '';
-    for (var i = 0; i < fraction.length; i++) {
+    let s = '';
+    for (let i = 0; i < fraction.length; i++) {
         s += (digit[Math.floor (n * 10 * Math.pow (10, i)) % 10] + fraction[i]).replace (/零./, '');
     }
     s = s || '整';
     n = Math.floor (n);
-    for (var i = 0; i < unit[0].length && n > 0; i++) {
-        var p = '';
-        for (var j = 0; j < unit[1].length && n > 0; j++) {
+    for (let i = 0; i < unit[0].length && n > 0; i++) {
+        let p = '';
+        for (let j = 0; j < unit[1].length && n > 0; j++) {
             p = digit[n % 10] + unit[1][j] + p;
             n = Math.floor (n / 10);
         }
         s = p.replace (/(零.)*零$/, '').replace (/^$/, '零') + unit[0][i] + s;
     }
-    s = s + new String (nom).toUpperCase ();
     return head + s.replace (/(零.)*零元/, '元')
         .replace (/(零.)+/g, '零')
-        .replace (/^整$/, '零整'
-        );
+        .replace (/^整$/, '零整');
+}
+const digitalCoin = function (n, nom) {
+    const symbol = new String (nom).toUpperCase ();
+    const fraction = ['角', '分'];
+    const digit = [
+        '零', '壹', '贰', '叁', '肆',
+        '伍', '陆', '柒', '捌', '玖'
+    ];
+    const unit = [
+        [symbol, '万', '亿'],
+        ['', '拾', '佰', '仟']
+    ];
+    const head = n < 0 ? '负' : '';
+    n = Math.abs (n);
+    let s = '';
+    for (let i = 0; i < fraction.length; i++) {
+        s += (digit[Math.floor (n * 10 * Math.pow (10, i)) % 10] + fraction[i]).replace (/零./, '');
+    }
+    s = s || '整';
+    n = Math.floor (n);
+    for (let i = 0; i < unit[0].length && n > 0; i++) {
+        let p = '';
+        for (let j = 0; j < unit[1].length && n > 0; j++) {
+            p = digit[n % 10] + unit[1][j] + p;
+            n = Math.floor (n / 10);
+        }
+        s = p.replace (/(零.)*零$/, '').replace (/^$/, '零') + unit[0][i] + s;
+    }
+    return head +
+        s.replace (/(零.)*零元/, '')
+        .replace (/(零.)+/g, '零')
+        .replace (/^整$/, '零整');
 }
 
 export default class Coin {
@@ -121,7 +151,7 @@ export default class Coin {
         if (this.amount < minStake) {
             return `${numbro (this.amount).format ('0,0.0000')} ${this._coin.denom}`;
         } else {
-            return `${digitUppercase (this.stakingAmount, this._coin.displayName)}`
+            return `${digitalCoin (this.stakingAmount, this._coin.displayName)}`
         }
     }
 }

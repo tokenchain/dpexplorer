@@ -54,3 +54,41 @@ mod_setting() {
     cat $EXPLORER_SETTINGS | jq "$param_hk" -c $EXPLORER_SETTINGS | sponge $EXPLORER_SETTINGS
 }
 
+
+
+env_segment(){
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "mainnet"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+   echo "testlocal"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    echo "testlocal"
+    # POSIX compatibility layer and Linux environment emulation for Windows
+elif [[ "$OSTYPE" == "msys" ]]; then
+    # Windows
+   echo "testlocal"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+    # ...
+    echo "testlocal"
+fi
+}
+
+env_setting_file(){
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "settings_centos.json"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+   echo "settings_local.json"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    echo "settings_local.json"
+    # POSIX compatibility layer and Linux environment emulation for Windows
+elif [[ "$OSTYPE" == "msys" ]]; then
+    # Windows
+   echo "settings_local.json"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+    # ...
+    echo "settings_local.json"
+fi
+}
+
