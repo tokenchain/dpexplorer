@@ -99,11 +99,11 @@ fi
 #exit
 #cd $BUILD_DIR
 
-if [[ ! -f $BUILD_DIR/$NEW_NAME ]]; then
+if [[ ! -f "$BUILD_DIR/$NEW_NAME" ]]; then
 
-    touch $BUILD_DIR/$FILE
+    touch "$BUILD_DIR/$FILE"
     echo "=========================="
-    echo "| Building for production |"
+    echo " Building for production"
     echo "=========================="
     cd $WORK_SPACE
     #meteor build ./build/ --architecture os.linux.x86_64 --server-only --allow-superuser
@@ -113,6 +113,7 @@ if [[ ! -f $BUILD_DIR/$NEW_NAME ]]; then
 
     cd $BUILD_DIR
     mv $FILE $NEW_NAME
+    exit
 fi
 
 EXTRACT="cd $TARGET_LOC; tar -xvf $NEW_NAME;bash"

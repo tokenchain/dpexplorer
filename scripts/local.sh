@@ -35,7 +35,6 @@ echo "====================================="
 echo "if do not have sponge please install. MacOS please run [brew install moreutil]. Now editing the setting json file."
 echo "====================================="
 
-
 mod_setting ".genesisFile" $JSON_TARGET
 mod_setting ".public.chainId" $CHAIN_ID
 mod_setting ".public.chainName" $CHAIN_NAME
@@ -52,7 +51,6 @@ mod_setting ".public.bondDenom" $NATIVE_TOKEN
 mod_setting ".public.coingeckoId" $MARKET_SYMBOL
 mod_setting ".remote.rpc" $RPC
 mod_setting ".remote.lcd" $LCD
-
 
 
 echo "==========================="
