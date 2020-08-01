@@ -69,6 +69,7 @@ cp "settings_local.json" $EXPLORER_SETTINGS
 
 mod_setting ".genesisFile" $GENESIS_FILE_URL
 mod_setting ".public.chainId" $CHAIN_ID
+mod_setting ".public.version" "mainnet"
 mod_setting ".public.chainName" $CHAIN_NAME
 mod_setting ".public.coins[0].denom" $NATIVE_TOKEN
 mod_setting ".public.coins[0].displayName" $NATIVE_TOKEN_NAME
