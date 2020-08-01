@@ -2,7 +2,7 @@ import '/imports/startup/client';
 import '/imports/ui/stylesheets/pace-theme.css';
 import '/imports/ui/stylesheets/flipclock.css';
 import '/node_modules/plottable/plottable.css';
-import './styles.scss';
+import './container_styles.scss';
 import App from '/imports/ui/App.jsx';
 import React from 'react';
 import { Meteor } from 'meteor/meteor';

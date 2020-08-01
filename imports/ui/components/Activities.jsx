@@ -3,6 +3,7 @@ import { MsgType, MsgDarkpooContent } from './MsgType.jsx';
 import { Container, Row, Col, Card, CardBody, Alert, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Account from '../components/Account.jsx';
+import { DPMessageBlock } from '../components/DPMessage.jsx';
 import i18n from 'meteor/universe:i18n';
 import Coin from '/both/utils/coins.js'
 import _ from 'lodash';
@@ -44,6 +45,7 @@ const send_fund = (amount, type, from, to, invalid) => {
         address={to}/></span><T>common.fullStop</T></p>
 }
 
+
 export class Activities extends Component {
     constructor (props) {
         super (props);
@@ -77,10 +79,11 @@ export class Activities extends Component {
 
 const darkpool_rnd = (invalid, payload_msg) => {
     if (payload_msg.type == "bonds/MsgCreateBond") {
-        return <MsgDarkpooContent type={payload_msg.type} payload={payload_msg}/>
+        return <p><MsgType type={payload_msg.type}/> <MsgDarkpooContent type={payload_msg.type} payload={payload_msg}/>
+        </p>
     } else {
         return <p>{invalid ? <T>activities.failedTo</T> : ''} <MsgType
-            type={payload_msg.type}/> <MsgDarkpooContent type={payload_msg.type} payload={payload_msg}/></p>
+            type={payload_msg.type}/> <DPMessageBlock type={payload_msg.type} payload={payload_msg}/></p>
     }
 }
 
