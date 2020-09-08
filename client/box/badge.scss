@@ -13,6 +13,9 @@
   transition:color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition:color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition:color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  &.encrypted-block{
+    text-align:left;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -28,7 +31,7 @@
     background-color:#644212;
   }
   &bondissue{
-    color::#ffd6ed;
+    color:#ffd6ed;
     background-color:#A819B0;
   }
   &bondexchange{
@@ -40,31 +43,47 @@
     background-color:#EBD234;
   }
   &info{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#6752B2;
   }
   &success{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#309E2C;
   }
+  &staking{
+    color:#FFFFFF;
+    background-color:#8A51B0;
+  }
+  &withdraw{
+    color:#CAEDDE;
+    background-color:#70CF9F;
+  }
   &danger{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#CC0000;
   }
   &warning{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#dba11a;
   }
   &light{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#222;
   }
   &dark{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#ADAFAE;
   }
+  &pub{
+    color:#4d1c46;
+    background-color:#facae4;
+  }
   &secondary{
-    color::#FFFFFF;
+    color:#FFFFFF;
     background-color:#2b8af0;
+  }
+  &vote{
+    color:#93fff2;
+    background-color:#103158;
   }
 }

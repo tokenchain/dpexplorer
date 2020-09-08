@@ -164,7 +164,7 @@ export default class Validator extends Component {
                         return <Block key={i} exists={record.exists} height={record.height}/>
                     })
                 })
-                console.log (this.props.records);
+               // console.log (this.props.records);
             }
         }
     }

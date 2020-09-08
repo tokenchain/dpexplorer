@@ -14,5 +14,4 @@ export default class NotFound extends Component{
             <div><Link to="/">Back to home</Link></div>
         </Container>
     }
-
 }

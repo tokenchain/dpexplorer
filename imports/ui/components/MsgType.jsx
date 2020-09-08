@@ -22,10 +22,28 @@ const T = i18n.createComponent ();
 	cdc.RegisterConcrete(MsgSell{}, "bonds/MsgSell", nil)
 	cdc.RegisterConcrete(MsgSwap{}, "bonds/MsgSwap", nil)
  */
+export const Vote = (props) => {
+    switch (props.option) {
+        case "Yes":
+            return <Badge color="vote"><T>proposals.yes</T></Badge>;
+        case "No":
+            return <Badge color="vote"><T>proposals.no</T></Badge>;
+        case "NoWithVeto":
+            return <Badge color="vote"><T>proposals.noWithVeto</T></Badge>;
+        case "Abstain":
+            return <Badge color="vote"><T>proposals.abstain</T></Badge>;
+        case "YesVotes":
+            return <Badge color="vote"><T>proposals.yes</T> Veto</Badge>;
+        default:
+            return
+    }
+}
 export const MsgType = (props) => {
     switch (props.type) {
         case "treasury/MsgOracleMint":
             return <Badge color="mint">Mint Coin</Badge>;
+        case "treasury/MsgOracleTransfer":
+            return <Badge color="success">Oracle Fund Transfer</Badge>;
         //did
         case "did/MsgAddDid":
             return <Badge color="did">Cert Activation</Badge>;
@@ -56,39 +74,34 @@ export const MsgType = (props) => {
             return <Badge color="success"><T>messageTypes.send</T></Badge>
         case "cosmos-sdk/MsgMultiSend":
             return <Badge color="success"><T>messageTypes.multiSend</T></Badge>
-
         //staking
         case "cosmos-sdk/MsgCreateValidator":
-            return <Badge color="warning"><T>messageTypes.createValidator</T></Badge>;
+            return <Badge color="staking"><T>messageTypes.createValidator</T></Badge>;
         case "cosmos-sdk/MsgEditValidator":
-            return <Badge color="warning"><T>messageTypes.editValidator</T></Badge>;
+            return <Badge color="staking"><T>messageTypes.editValidator</T></Badge>;
         case "cosmos-sdk/MsgDelegate":
-            return <Badge color="warning"><T>messageTypes.delegate</T></Badge>;
+            return <Badge color="staking"><T>messageTypes.delegate</T></Badge>;
         case "cosmos-sdk/MsgUndelegate":
-            return <Badge color="warning"><T>messageTypes.undelegate</T></Badge>;
+            return <Badge color="staking"><T>messageTypes.undelegate</T></Badge>;
         case "cosmos-sdk/MsgBeginRedelegate":
-            return <Badge color="warning"><T>messageTypes.redelegate</T></Badge>;
-
+            return <Badge color="staking"><T>messageTypes.redelegate</T></Badge>;
         // gov
         case "cosmos-sdk/MsgSubmitProposal":
-            return <Badge color="info"><T>messageTypes.submitProposal</T></Badge>
+            return <Badge color="info">📣 <T>messageTypes.submitProposal</T></Badge>
         case "cosmos-sdk/MsgDeposit":
-            return <Badge color="info"><T>messageTypes.deposit</T></Badge>
+            return <Badge color="info">💰 <T>messageTypes.deposit</T></Badge>
         case "cosmos-sdk/MsgVote":
-            return <Badge color="info"><T>messageTypes.vote</T></Badge>;
-
+            return <Badge color="info">🗳 <T>messageTypes.vote</T></Badge>;
         // distribution
         case "cosmos-sdk/MsgWithdrawValidatorCommission":
-            return <Badge color="secondary"><T>messageTypes.withdrawComission</T></Badge>;
+            return <Badge color="warning"><T>messageTypes.withdrawComission</T></Badge>;
         case "cosmos-sdk/MsgWithdrawDelegationReward":
-            return <Badge color="secondary"><T>messageTypes.withdrawReward</T></Badge>;
+            return <Badge color="withdraw"><T>messageTypes.withdrawReward</T></Badge>;
         case "cosmos-sdk/MsgModifyWithdrawAddress":
-            return <Badge color="secondary"><T>messgeTypes.modifyWithdrawAddress</T></Badge>;
-
+            return <Badge color="warning"><T>messageTypes.modifyWithdrawAddress</T></Badge>;
         // slashing
         case "cosmos-sdk/MsgUnjail":
             return <Badge color="danger"><T>messageTypes.unjail</T></Badge>;
-
         // ibc
         case "cosmos-sdk/IBCTransferMsg":
             return <Badge color="dark"><T>messageTypes.IBCTransfer</T></Badge>;
@@ -217,12 +230,4 @@ export const BondIssuranceDetail = (props) => {
 export const MsgDarkpooContent = (props) => {
     const p = props.payload.value;
     return <BondIssurance bondAttrs={p}/>
-}
-
-
-const send_fund = (amount, type, from, to, invalid) => {
-    return <p><MsgType type={type}/> <span
-        className="text-success">{amount}</span> <T>activities.from</T> <Account address={from}/> {invalid ?
-        <T>activities.failedTo</T> : ''} <T>activities.to</T> <span className="address"><Account
-        address={to}/></span><T>common.fullStop</T></p>
 }

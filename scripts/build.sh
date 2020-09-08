@@ -8,7 +8,7 @@
 #sh build.sh dx1 u
 
 . ./_needle.sh
-
+o
 
 if [[ $1 == "testnet" ]]; then
 

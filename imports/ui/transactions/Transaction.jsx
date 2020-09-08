@@ -144,14 +144,13 @@ const activity = (content) => {
 
                 content.tx.value.payload.map ((m, i) => {
                     return <Row key={i}>
-                        <DxpActivities msg={m} invalid={!valid_trans}/>
+                        <Activities msg={m} invalid={!valid_trans}/>
                     </Row>
                 })
 
 
             }</CardBody>
         </Card>
-
     }
     if (has_cosmos_msg) {
         return <Card>

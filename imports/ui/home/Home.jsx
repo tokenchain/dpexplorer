@@ -15,7 +15,7 @@ export default class Home extends Component {
     render () {
         return <div id="home">
             <Helmet>
-                <title>The DP hub Darkpool Explorer</title>
+                <title>The Darkpool Explorer</title>
                 <meta name="description"
                       content="Darkpool is a decentralized network of independent parallel blockchains, each powered by BFT consensus algorithms like Tendermint consensus."/>
             </Helmet>

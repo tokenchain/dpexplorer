@@ -202,6 +202,9 @@ export default class Header extends Component {
                         <NavItem>
                             <NavLink tag={Link} to="/voting-power-distribution"><T>navbar.votingPower</T></NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/proposals"><T>navbar.proposals</T></NavLink>
+                        </NavItem>
                         <NavItem id="user-acconut-icon">
                             {!signedInAddress ? <Button className="sign-in-btn" color="link" size="lg" onClick={() => {
                                     this.setState ({ isSignInOpen : true })

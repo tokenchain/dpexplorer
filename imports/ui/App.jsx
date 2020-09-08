@@ -50,19 +50,17 @@ class App extends Component {
         if (now.diff(lastDay) < 0 ){
             toast.error("🐷 Gung Hei Fat Choi! 恭喜發財！");
         }
-
         let lang = getLang();
 
-        if ((lang.toLowerCase() == 'zh-tw') || (lang.toLowerCase() == 'zh-hk')){
-            i18n.setLocale('zh-Hant');
+        if ((lang.toLowerCase() === "zh-tw") || (lang.toLowerCase() === "zh-hk")){
+            i18n.setLocale("zh-Hant");
         }
-        else if ((lang.toLowerCase() == 'zh-cn') || (lang.toLowerCase() == 'zh-hans-cn') || (lang.toLowerCase() == 'zh')){
-            i18n.setLocale('zh-Hans');
+        else if ((lang.toLowerCase() === "zh-cn") || (lang.toLowerCase() === "zh-hans-cn") || (lang.toLowerCase() === "zh")){
+            i18n.setLocale("zh-Hans");
         }
         else{
             i18n.setLocale(lang);
         }
-
     }
 
     propagateStateChange = () => {
