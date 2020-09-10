@@ -82,6 +82,7 @@ mod_setting ".public.coins[2].displayName" "DITA"
 mod_setting ".public.coins[2].fraction" 1000
 mod_setting ".public.bondDenom" $NATIVE_TOKEN
 mod_setting ".public.coingeckoId" $MARKET_SYMBOL
+mod_setting ".public.version" "mainnet"
 mod_setting ".remote.rpc" $RPC
 mod_setting ".remote.lcd" $LCD
 
