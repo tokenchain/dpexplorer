@@ -20,7 +20,7 @@ export default class SentryBoundary extends Component {
                 <div className="snap">
                     <div className="snap-message">
                         <p>We're sorry - something's gone wrong.</p>
-                        <p>Please try to refresh the page and see if the problem is gone. If the problem keeps happening, please consider filing a Github issue</a>.</p>
+                        <p>Please try to refresh the page and see if the problem is gone. If the problem keeps happening, please consider filing a Github issue.</p>
                         <p>{JSON.stringify (this.state.error)}</p>
                         <p>{JSON.stringify (this.state.errorInfo)}</p>
                     </div>
